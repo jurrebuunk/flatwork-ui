@@ -7,26 +7,6 @@ let
   cursor = theme.cursor;
   icons = theme.icons;
   iconPackage = builtins.getAttr icons.package pkgs;
-  mcMojaveCursors = pkgs.stdenvNoCC.mkDerivation {
-    pname = "mcmojave-cursors";
-    version = "2024-03-17";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = "McMojave-cursors";
-      rev = "7d0bfc1f91028191cdc220b87fd335a235ee4439";
-      hash = "sha256-4YqSucpxA7jsuJ9aADjJfKRPgPR89oq2l0T1N28+GV0=";
-    };
-
-    dontBuild = true;
-
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/share/icons
-      cp -r dist $out/share/icons/McMojave-cursors
-      runHook postInstall
-    '';
-  };
   cursorPackage =
     if builtins.hasAttr cursor.package pkgs
     then builtins.getAttr cursor.package pkgs
