@@ -1,10 +1,16 @@
-{ theme ? import ../themes/default.nix, ... }:
+{ config, lib, theme ? import ../themes/default.nix, ... }:
 
 let
+  inherit (config.lib.formats.rasi) mkLiteral;
+
   c = theme.colors;
   f = theme.fonts;
   g = theme.geometry;
   s = theme.layout.spacing;
+
+  lit = mkLiteral;
+  color = mkLiteral;
+  px = n: mkLiteral "${toString n}px";
 
   notificationWidth = theme.layout.notification.width;
   panelHeight = theme.layout.notification.width;
@@ -20,103 +26,129 @@ in
       display-drun = "app";
       display-run = "command";
       font = "${f.serif} ${toString f.sizes.serifUi}";
+
+      # Rofi's configuration-level location overrides the theme's window
+      # location. Keep this in sync with the theme window block.
+      location = 1; # north west
+      xoffset = panelMargin;
+      yoffset = panelMargin;
     };
 
     theme = {
       "*" = {
-        background = c.background;
-        background-color = c.background;
-        foreground = c.text;
-        border-color = c.border;
-        separatorcolor = c.border;
-        scrollbar-handle = c.border;
+        background = color c.background;
+        background-color = color c.background;
+        foreground = color c.text;
+        border-color = color c.border;
+        separatorcolor = color c.border;
+        scrollbar-handle = color c.border;
 
-        normal-background = c.background;
-        normal-foreground = c.text;
-        alternate-normal-background = c.background;
-        alternate-normal-foreground = c.text;
+        normal-background = color c.background;
+        normal-foreground = color c.text;
+        alternate-normal-background = color c.background;
+        alternate-normal-foreground = color c.text;
 
-        selected-normal-background = c.states.active;
-        selected-normal-foreground = c.background;
-        active-background = c.states.active;
-        active-foreground = c.background;
-        urgent-background = c.error;
-        urgent-foreground = c.background;
+        selected-normal-background = color c.states.active;
+        selected-normal-foreground = color c.background;
+        active-background = color c.states.active;
+        active-foreground = color c.background;
+        urgent-background = color c.error;
+        urgent-foreground = color c.background;
       };
 
       window = {
-        location = "west";
-        anchor = "west";
-        x-offset = panelMargin;
-        y-offset = 0;
+        location = lit "north west";
+        anchor = lit "north west";
+        x-offset = px panelMargin;
+        y-offset = px panelMargin;
         width = notificationWidth;
         height = panelHeight;
         padding = 0;
         # Match the window treatment used elsewhere: a background-colored
         # outer frame around the normal 1px structural border.
-        border = "3px";
-        border-color = c.background;
-        background-color = c.background;
-        children = [ "mainbox" ];
+        border = px 3;
+        border-color = color c.background;
+        background-color = color c.background;
+        children = map lit [ "mainbox" ];
       };
 
       mainbox = {
-        orientation = "vertical";
-        children = [ "inputbar" "listview" ];
+        orientation = lit "vertical";
+        children = map lit [ "inputbar" "listview" ];
         spacing = 0;
         padding = 0;
-        border = g.border.widthPx;
-        border-color = c.border;
-        background-color = c.background;
+        border = mkLiteral g.border.widthPx;
+        border-color = color c.border;
+        background-color = color c.background;
       };
 
       inputbar = {
-        orientation = "horizontal";
-        children = [ "entry" ];
-        padding = "${toString panelPadding}px";
-        border = "0px 0px ${g.border.widthPx} 0px";
-        border-color = c.border;
-        background-color = c.background;
+        orientation = lit "horizontal";
+        children = map lit [ "entry" ];
+        padding = px panelPadding;
+        border = lit "0px 0px ${g.border.widthPx} 0px";
+        border-color = color c.border;
+        background-color = color c.background;
       };
 
       entry = {
         expand = true;
         placeholder = "launch…";
-        placeholder-color = c.textMuted;
-        text-color = c.text;
-        cursor-color = c.terminal.cursor;
-        background-color = c.background;
+        placeholder-color = color c.textMuted;
+        text-color = color c.text;
+        cursor-color = color c.terminal.cursor;
+        background-color = color c.background;
       };
 
       listview = {
-        layout = "vertical";
-        flow = "vertical";
+        layout = lit "vertical";
+        flow = lit "vertical";
         lines = 10;
         fixed-height = false;
         dynamic = true;
         scrollbar = false;
         spacing = s.xs;
-        padding = "${toString panelPadding}px";
-        background-color = c.background;
+        padding = px panelPadding;
+        background-color = color c.background;
       };
 
       element = {
-        orientation = "horizontal";
-        children = [ "element-text" ];
-        padding = "${toString s.xs}px ${toString s.sm}px";
-        background-color = c.background;
-        text-color = c.text;
+        orientation = lit "horizontal";
+        children = map lit [ "element-text" ];
+        padding = lit "${toString s.xs}px ${toString s.sm}px";
+        background-color = color c.background;
+        text-color = color c.text;
+      };
+
+      "element normal.normal" = {
+        background-color = color c.background;
+        text-color = color c.text;
+      };
+
+      "element alternate.normal" = {
+        background-color = color c.background;
+        text-color = color c.text;
       };
 
       "element selected.normal" = {
-        background-color = c.states.active;
-        text-color = c.background;
+        background-color = color c.states.active;
+        text-color = color c.background;
+      };
+
+      element-icon = {
+        background-color = lit "inherit";
+        text-color = lit "inherit";
       };
 
       element-text = {
-        vertical-align = "0.5";
-        background-color = "transparent";
-        text-color = "inherit";
+        vertical-align = lit "0.5";
+        background-color = lit "inherit";
+        text-color = lit "inherit";
+      };
+
+      scrollbar = {
+        background-color = color c.background;
+        handle-color = color c.border;
       };
     };
   };
