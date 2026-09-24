@@ -4,7 +4,7 @@ Reusable Nix flake for Jurre's desktop design system: a modern dark, academic/te
 
 The design intent lives in [`DESIGN.MD`](./DESIGN.MD). The machine-readable tokens live in [`themes/hue-gradient-design.nix`](./themes/hue-gradient-design.nix).
 
-This flake contains the reusable desktop theme plus selected full-experience app modules. Firefox and Waybar intentionally include Jurre's UI/workflow defaults so consumers get the same browser/bar experience. Machine/session config such as WM keybinds, monitor names, startup apps, and personal paths should still live in the consuming config.
+This flake contains the reusable desktop theme plus selected full-experience app modules. Firefox and Waybar intentionally include Jurre's UI/workflow defaults so consumers get the same browser/bar experience. Niri is expected for the full Waybar module. Machine/session config such as WM keybinds, monitor names, startup apps, and personal paths should still live in the consuming config.
 
 ## Exports
 
@@ -44,3 +44,18 @@ This flake contains the reusable desktop theme plus selected full-experience app
 ```
 
 If you only want the tokens, set `theme = jurre-theme.lib.themes.default;` and keep your own modules.
+
+## Waybar hardware overrides
+
+The full Waybar module defaults to Jurre's Niri laptop layout. If another machine has a different sensor path, override only that bit:
+
+```nix
+{
+  jurre.theme.waybar.temperature.hwmonPath = null; # let Waybar auto-detect
+  # or:
+  # jurre.theme.waybar.temperature.hwmonPath = "/sys/devices/platform/k10temp.0/hwmon/hwmon3";
+
+  # Optional: customize right-side modules while keeping the same styling.
+  # jurre.theme.waybar.modulesRight = [ "memory" "pulseaudio" "battery" "network" "clock" ];
+}
+```

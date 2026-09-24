@@ -7,9 +7,66 @@ let
   spacing = theme.layout.spacing;
   barContentHeight = theme.layout.bar.height - 4;
   barInset = 4;
+  cfg = config.jurre.theme.waybar;
+  temperatureModule = {
+    interval = cfg.temperature.interval;
+    input-filename = cfg.temperature.inputFilename;
+    critical-threshold = cfg.temperature.criticalThreshold;
+    format = cfg.temperature.format;
+    tooltip = cfg.temperature.tooltip;
+  } // lib.optionalAttrs (cfg.temperature.hwmonPath != null) {
+    hwmon-path-abs = cfg.temperature.hwmonPath;
+  };
 in
 {
-  programs.waybar = {
+  options.jurre.theme.waybar = {
+    modulesRight = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "temperature" "memory" "backlight" "pulseaudio" "battery" "network" "clock" ];
+      description = "Waybar modules shown on the right side. Defaults to Jurre's Niri desktop layout.";
+    };
+
+    temperature = {
+      hwmonPath = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = "/sys/devices/platform/coretemp.0/hwmon";
+        description = "Absolute hwmon path for Waybar temperature. Set to null to let Waybar auto-detect.";
+      };
+
+      inputFilename = lib.mkOption {
+        type = lib.types.str;
+        default = "temp1_input";
+        description = "Temperature input filename inside hwmonPath.";
+      };
+
+      criticalThreshold = lib.mkOption {
+        type = lib.types.int;
+        default = 80;
+        description = "Temperature critical threshold in degrees Celsius.";
+      };
+
+      interval = lib.mkOption {
+        type = lib.types.int;
+        default = 2;
+        description = "Temperature polling interval in seconds.";
+      };
+
+      format = lib.mkOption {
+        type = lib.types.str;
+        default = "[c:{temperatureC}°]";
+        description = "Waybar temperature format string.";
+      };
+
+      tooltip = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether the Waybar temperature module shows a tooltip.";
+      };
+    };
+  };
+
+  config = {
+    programs.waybar = {
     enable = true; # Started explicitly by niri so it behaves like the old top bar.
     systemd.enable = false;
     package = pkgs.waybar;
@@ -26,7 +83,7 @@ in
 
         modules-left = [ "niri/workspaces" ];
         modules-center = [ ];
-        modules-right = [ "temperature" "memory" "backlight" "pulseaudio" "battery" "network" "clock" ];
+        modules-right = cfg.modulesRight;
 
         "niri/workspaces" = {
           format = "{value}";
@@ -67,14 +124,7 @@ in
           tooltip-format = "RAM: {used:0.1f}Gi / {total:0.1f}Gi ({percentage}%)";
         };
 
-        temperature = {
-          interval = 2;
-          hwmon-path-abs = "/sys/devices/platform/coretemp.0/hwmon";
-          input-filename = "temp1_input";
-          critical-threshold = 80;
-          format = "[c:{temperatureC}°]";
-          tooltip = false;
-        };
+        temperature = temperatureModule;
 
         backlight = {
           interval = 2;
@@ -270,5 +320,6 @@ in
         }
       }
     '';
+    };
   };
 }
