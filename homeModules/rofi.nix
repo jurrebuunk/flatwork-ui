@@ -5,6 +5,11 @@ let
   f = theme.fonts;
   g = theme.geometry;
   s = theme.layout.spacing;
+
+  notificationWidth = theme.layout.notification.width;
+  panelHeight = theme.layout.notification.width;
+  panelMargin = s.xl;
+  panelPadding = s.lg;
 in
 {
   programs.rofi = {
@@ -40,32 +45,37 @@ in
       };
 
       window = {
-        location = "north";
-        anchor = "north";
-        x-offset = 0;
+        location = "west";
+        anchor = "west";
+        x-offset = panelMargin;
         y-offset = 0;
-        width = "100%";
-        height = theme.layout.bar.height;
+        width = notificationWidth;
+        height = panelHeight;
         padding = 0;
-        border = "0px 0px ${g.border.widthPx} 0px";
-        border-color = c.border;
-        children = [ "horibox" ];
+        # Match the window treatment used elsewhere: a background-colored
+        # outer frame around the normal 1px structural border.
+        border = "3px";
+        border-color = c.background;
+        background-color = c.background;
+        children = [ "mainbox" ];
       };
 
-      horibox = {
-        orientation = "horizontal";
+      mainbox = {
+        orientation = "vertical";
         children = [ "inputbar" "listview" ];
-        spacing = s.md;
-        padding = "0px ${toString s.sm}px";
+        spacing = 0;
+        padding = 0;
+        border = g.border.widthPx;
+        border-color = c.border;
         background-color = c.background;
       };
 
       inputbar = {
         orientation = "horizontal";
         children = [ "entry" ];
-        expand = false;
-        width = "28%";
-        padding = 0;
+        padding = "${toString panelPadding}px";
+        border = "0px 0px ${g.border.widthPx} 0px";
+        border-color = c.border;
         background-color = c.background;
       };
 
@@ -79,22 +89,21 @@ in
       };
 
       listview = {
-        layout = "horizontal";
-        flow = "horizontal";
-        lines = 1;
-        columns = 5;
-        fixed-height = true;
+        layout = "vertical";
+        flow = "vertical";
+        lines = 10;
+        fixed-height = false;
         dynamic = true;
         scrollbar = false;
         spacing = s.xs;
-        padding = 0;
+        padding = "${toString panelPadding}px";
         background-color = c.background;
       };
 
       element = {
         orientation = "horizontal";
         children = [ "element-text" ];
-        padding = "0px ${toString s.sm}px";
+        padding = "${toString s.xs}px ${toString s.sm}px";
         background-color = c.background;
         text-color = c.text;
       };
