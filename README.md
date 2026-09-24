@@ -1,41 +1,109 @@
-# Jurre Theme
+# Flatwork UI
 
-Reusable Nix flake for Jurre's desktop design system: a modern dark, academic/technical interface with STIX Two Text, IBM Plex Mono, muted colors, square corners, 1px borders, flat surfaces, and no decorative shadows.
+![Flatwork UI desktop screenshot](./docs/screenshot.png)
 
-The design intent lives in [`DESIGN.MD`](./DESIGN.MD). The machine-readable tokens live in [`themes/hue-gradient-design.nix`](./themes/hue-gradient-design.nix).
+Flatwork UI is a reusable Nix flake for a precise dark Niri desktop experience. It combines a machine-readable design system with Home Manager modules for GTK, Firefox, Waybar, Rofi, Mako, SwayOSD, Alacritty, Fastfetch, and a Bash prompt.
 
-This flake contains the reusable desktop theme plus selected full-experience app modules. Firefox and Waybar intentionally include Jurre's UI/workflow defaults so consumers get the same browser/bar experience. Niri is expected for the full Waybar module. Machine/session config such as WM keybinds, monitor names, startup apps, and personal paths should still live in the consuming config.
+The visual direction is documented in [`DESIGN.MD`](./DESIGN.MD): flat surfaces, no rounded corners, 1px structural borders, STIX Two Text for human/interface language, IBM Plex Mono for technical language, muted colors, and a restrained workstation feel.
 
-## Exports
+## Flake outputs
 
-- `lib.themes.default` / `lib.themes.hue-gradient-design` — theme tokens
-- `homeManagerModules.default` / `homeModules.default` — desktop + app styling bundle
-- `homeManagerModules.desktop` — GTK, Mako, full Waybar config/style, Rofi theme, SwayOSD CSS
-- `homeManagerModules.apps` — Alacritty colors, full Firefox config/CSS, Fastfetch colors, Bash prompt
-- individual Home Manager modules, e.g. `homeManagerModules.gtk`, `homeManagerModules.alacritty`, `homeManagerModules.bash-prompt`
-- `nixosModules.fonts` — system font packages
-- `overlays.default` — compatibility overlay for `ibm-plex-mono-nerd`
+### Theme tokens
 
-## Example usage
+```nix
+flatwork-ui.lib.themes.default
+flatwork-ui.lib.themes.hue-gradient-design
+flatwork-ui.lib.themes.gruvbox
+flatwork-ui.lib.themes.starship
+flatwork-ui.lib.themes.teal
+flatwork-ui.lib.themes.orange
+```
+
+### Home Manager modules
+
+Bundles:
+
+```nix
+flatwork-ui.homeManagerModules.default     # style + experience
+flatwork-ui.homeManagerModules.style       # visual styling modules
+flatwork-ui.homeManagerModules.experience  # full Firefox + Waybar experience
+flatwork-ui.homeManagerModules.desktop     # GTK/Mako/Waybar/Rofi/SwayOSD
+flatwork-ui.homeManagerModules.apps        # Alacritty/Firefox/Fastfetch/Bash prompt
+```
+
+Individual modules:
+
+```nix
+flatwork-ui.homeManagerModules.gtk
+flatwork-ui.homeManagerModules.mako
+flatwork-ui.homeManagerModules.waybar
+flatwork-ui.homeManagerModules.rofi
+flatwork-ui.homeManagerModules.swayosd
+flatwork-ui.homeManagerModules.alacritty
+flatwork-ui.homeManagerModules.firefox
+flatwork-ui.homeManagerModules.fastfetch
+flatwork-ui.homeManagerModules.bash-prompt
+```
+
+### NixOS modules
+
+```nix
+flatwork-ui.nixosModules.fonts
+```
+
+Installs the font set needed by the theme.
+
+### Generated files
+
+```nix
+flatwork-ui.packages.${system}.css-vars
+flatwork-ui.packages.${system}.palette-json
+```
+
+These are useful for consuming the palette from non-Nix/Home Manager projects.
+
+## Full NixOS + Home Manager usage
 
 ```nix
 {
-  inputs.jurre-theme.url = "github:jurrebuunk/jurre-theme";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = inputs@{ nixpkgs, home-manager, jurre-theme, ... }: {
+    flatwork-ui = {
+      url = "github:jurrebuunk/flatwork-ui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = inputs@{ nixpkgs, home-manager, flatwork-ui, ... }: {
     nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = {
+        inherit inputs;
+        theme = flatwork-ui.lib.themes.default;
+      };
       modules = [
-        jurre-theme.nixosModules.fonts
+        flatwork-ui.nixosModules.fonts
         home-manager.nixosModules.home-manager
         {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
-            theme = jurre-theme.lib.themes.default;
+            inherit inputs;
+            theme = flatwork-ui.lib.themes.default;
           };
 
-          home-manager.users.me.imports = [
-            jurre-theme.homeManagerModules.default
-          ];
+          home-manager.users.me = {
+            imports = [
+              flatwork-ui.homeManagerModules.default
+            ];
+
+            home.username = "me";
+            home.homeDirectory = "/home/me";
+            home.stateVersion = "24.05";
+          };
         }
       ];
     };
@@ -43,19 +111,85 @@ This flake contains the reusable desktop theme plus selected full-experience app
 }
 ```
 
-If you only want the tokens, set `theme = jurre-theme.lib.themes.default;` and keep your own modules.
+## Toggling modules
 
-## Waybar hardware overrides
-
-The full Waybar module defaults to Jurre's Niri laptop layout. If another machine has a different sensor path, override only that bit:
+Most modules expose options under `flatwork.*` and are enabled by default when imported:
 
 ```nix
 {
-  jurre.theme.waybar.temperature.hwmonPath = null; # let Waybar auto-detect
-  # or:
-  # jurre.theme.waybar.temperature.hwmonPath = "/sys/devices/platform/k10temp.0/hwmon/hwmon3";
-
-  # Optional: customize right-side modules while keeping the same styling.
-  # jurre.theme.waybar.modulesRight = [ "memory" "pulseaudio" "battery" "network" "clock" ];
+  flatwork.firefox.enable = false;
+  flatwork.fastfetch.enable = false;
+  flatwork.rofi.enable = true;
 }
 ```
+
+## Waybar hardware overrides
+
+The full Waybar module assumes Niri and defaults to Jurre's laptop module layout. Override hardware-sensitive pieces when needed:
+
+```nix
+{
+  # Let Waybar auto-detect the temperature sensor.
+  flatwork.waybar.temperature.hwmonPath = null;
+
+  # Or set a specific sensor path.
+  # flatwork.waybar.temperature.hwmonPath = "/sys/devices/platform/k10temp.0/hwmon/hwmon3";
+
+  flatwork.waybar.modulesRight = [
+    "memory"
+    "pulseaudio"
+    "battery"
+    "network"
+    "clock"
+  ];
+}
+```
+
+## Using only theme tokens
+
+If you only want the palette/fonts/layout tokens, pass the theme through `extraSpecialArgs` and write your own modules:
+
+```nix
+home-manager.extraSpecialArgs = {
+  theme = inputs.flatwork-ui.lib.themes.default;
+};
+```
+
+Then consume it:
+
+```nix
+{ theme, ... }:
+
+{
+  programs.alacritty.settings.colors.primary = {
+    background = theme.colors.terminal.background;
+    foreground = theme.colors.terminal.foreground;
+  };
+}
+```
+
+## Using CSS variables outside Home Manager
+
+```bash
+nix build github:jurrebuunk/flatwork-ui#css-vars
+cat result
+```
+
+For JSON:
+
+```bash
+nix build github:jurrebuunk/flatwork-ui#palette-json
+cat result
+```
+
+## Theme schema
+
+See [`docs/theme-schema.md`](./docs/theme-schema.md).
+
+## Checks
+
+```bash
+nix flake check
+```
+
+The flake includes checks for hardcoded local paths and old theme-schema references.

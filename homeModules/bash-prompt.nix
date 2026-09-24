@@ -1,4 +1,4 @@
-{ theme ? import ../themes/default.nix, ... }:
+{ config, lib, theme ? import ../themes/default.nix, ... }:
 
 let
   hexToRgb = hex:
@@ -15,7 +15,15 @@ let
   promptColor = hexToRgb theme.colors.accent;
 in
 {
-  programs.bash.initExtra = ''
-    PS1='\[\e[1;38;2;${promptColor.r};${promptColor.g};${promptColor.b}m\]\w\[\e[0m\] $ '
-  '';
+  options.flatwork.bashPrompt.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable Bash prompt styling.";
+  };
+
+  config = lib.mkIf config.flatwork.bashPrompt.enable {
+      programs.bash.initExtra = ''
+        PS1='\[\e[1;38;2;${promptColor.r};${promptColor.g};${promptColor.b}m\]\w\[\e[0m\] $ '
+      '';
+  };
 }

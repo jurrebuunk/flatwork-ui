@@ -1,4 +1,4 @@
-{ theme ? import ../themes/default.nix, ... }:
+{ config, lib, theme ? import ../themes/default.nix, ... }:
 
 let
   c = theme.colors;
@@ -10,76 +10,84 @@ let
   topMarginRatio = "0.015";
 in
 {
-  xdg.configFile."swayosd/config.toml".text = ''
-    [server]
-    # Same visual top gap as Mako/Rofi: ${toString topMarginPx}px on the main panel.
-    top_margin = ${topMarginRatio}
-    min_brightness = 5
-    show_percentage = true
+  options.flatwork.swayosd.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable SwayOSD styling.";
+  };
 
-    [client]
-  '';
+  config = lib.mkIf config.flatwork.swayosd.enable {
+      xdg.configFile."swayosd/config.toml".text = ''
+        [server]
+        # Same visual top gap as Mako/Rofi: ${toString topMarginPx}px on the main panel.
+        top_margin = ${topMarginRatio}
+        min_brightness = 5
+        show_percentage = true
 
-  xdg.configFile."swayosd/style.css".text = ''
-    window#osd {
-      min-height: 40px;
-      margin-top: ${toString topMarginPx}px;
-      border-radius: ${g.radiusPx};
-      border: ${g.border.widthPx} solid ${c.accent};
-      background: ${c.background};
-      color: ${c.text};
-    }
+        [client]
+      '';
 
-    window#osd #container {
-      margin: ${toString spacing.lg}px;
-    }
+      xdg.configFile."swayosd/style.css".text = ''
+        window#osd {
+          min-height: 40px;
+          margin-top: ${toString topMarginPx}px;
+          border-radius: ${g.radiusPx};
+          border: ${g.border.widthPx} solid ${c.accent};
+          background: ${c.background};
+          color: ${c.text};
+        }
 
-    window#osd image,
-    window#osd label {
-      color: ${c.text};
-      font-size: ${toString theme.fonts.sizes.ui}pt;
-    }
+        window#osd #container {
+          margin: ${toString spacing.lg}px;
+        }
 
-    window#osd image {
-      -gtk-icon-size: 14px;
-    }
+        window#osd image,
+        window#osd label {
+          color: ${c.text};
+          font-size: ${toString theme.fonts.sizes.ui}pt;
+        }
 
-    window#osd progressbar:disabled,
-    window#osd image:disabled {
-      opacity: 0.5;
-    }
+        window#osd image {
+          -gtk-icon-size: 14px;
+        }
 
-    window#osd progressbar,
-    window#osd segmentedprogress {
-      min-height: 4px;
-      min-width: 180px;
-      border-radius: ${g.radiusPx};
-      background: transparent;
-      border: none;
-    }
+        window#osd progressbar:disabled,
+        window#osd image:disabled {
+          opacity: 0.5;
+        }
 
-    window#osd trough,
-    window#osd segment {
-      min-height: inherit;
-      border-radius: ${g.radiusPx};
-      border: none;
-      background: ${c.border};
-    }
+        window#osd progressbar,
+        window#osd segmentedprogress {
+          min-height: 4px;
+          min-width: 180px;
+          border-radius: ${g.radiusPx};
+          background: transparent;
+          border: none;
+        }
 
-    window#osd progress,
-    window#osd segment.active {
-      min-height: inherit;
-      border-radius: ${g.radiusPx};
-      border: none;
-      background: ${c.accent};
-    }
+        window#osd trough,
+        window#osd segment {
+          min-height: inherit;
+          border-radius: ${g.radiusPx};
+          border: none;
+          background: ${c.border};
+        }
 
-    window#osd segment {
-      margin-left: ${toString spacing.xs}px;
-    }
+        window#osd progress,
+        window#osd segment.active {
+          min-height: inherit;
+          border-radius: ${g.radiusPx};
+          border: none;
+          background: ${c.accent};
+        }
 
-    window#osd segment:first-child {
-      margin-left: 0;
-    }
-  '';
+        window#osd segment {
+          margin-left: ${toString spacing.xs}px;
+        }
+
+        window#osd segment:first-child {
+          margin-left: 0;
+        }
+      '';
+  };
 }

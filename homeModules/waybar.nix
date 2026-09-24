@@ -7,7 +7,7 @@ let
   spacing = theme.layout.spacing;
   barContentHeight = theme.layout.bar.height - 4;
   barInset = 4;
-  cfg = config.jurre.theme.waybar;
+  cfg = config.flatwork.waybar;
   temperatureModule = {
     interval = cfg.temperature.interval;
     input-filename = cfg.temperature.inputFilename;
@@ -19,7 +19,13 @@ let
   };
 in
 {
-  options.jurre.theme.waybar = {
+  options.flatwork.waybar = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable full Flatwork Waybar experience.";
+    };
+
     modulesRight = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ "temperature" "memory" "backlight" "pulseaudio" "battery" "network" "clock" ];
@@ -65,7 +71,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.waybar = {
     enable = true; # Started explicitly by niri so it behaves like the old top bar.
     systemd.enable = false;

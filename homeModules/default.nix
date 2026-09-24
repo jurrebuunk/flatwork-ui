@@ -1,6 +1,6 @@
 {
   imports = [
-    ./desktop.nix
-    ./apps.nix
+    ./style.nix
+    ./experience.nix
   ];
 }

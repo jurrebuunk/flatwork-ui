@@ -1,4 +1,4 @@
-{ config, pkgs, theme ? import ../themes/default.nix, ... }:
+{ config, lib, pkgs, theme ? import ../themes/default.nix, ... }:
 
 let
   c = theme.colors;
@@ -446,79 +446,62 @@ let
     '';
   };
 
-in {
-  xdg.desktopEntries.code = {
-    name = "Visual Studio Code";
-    exec = "/run/current-system/sw/bin/code %F";
-    terminal = false;
-    type = "Application";
-    categories = [ "Development" "IDE" "TextEditor" ];
+in
+{
+  options.flatwork.gtk.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable GTK styling.";
   };
 
-  xdg.desktopEntries.chromium = {
-    name = "Chromium";
-    exec = "/run/current-system/sw/bin/chromium %U";
-    terminal = false;
-    type = "Application";
-    categories = [ "Network" "WebBrowser" ];
-    mimeType = [ "text/html" "x-scheme-handler/http" "x-scheme-handler/https" ];
-  };
+  config = lib.mkIf config.flatwork.gtk.enable {
+      xdg.configFile."gtk-3.0/gtk.css" = {
+        text = gtkCss;
+        force = true;
+      };
 
-  xdg.desktopEntries."chromium-browser" = {
-    name = "Chromium Browser";
-    exec = "/run/current-system/sw/bin/chromium %U";
-    terminal = false;
-    type = "Application";
-    categories = [ "Network" "WebBrowser" ];
-    mimeType = [ "text/html" "x-scheme-handler/http" "x-scheme-handler/https" ];
-  };
+      xdg.configFile."gtk-4.0/gtk.css" = {
+        text = gtkCss;
+        force = true;
+      };
 
-  xdg.configFile."gtk-3.0/gtk.css" = {
-    text = gtkCss;
-    force = true;
-  };
+      home.packages = [
+        pkgs.nerd-fonts.fira-code
+        iconPackage
+        cursorPackage
+      ];
 
-  xdg.configFile."gtk-4.0/gtk.css" = {
-    text = gtkCss;
-    force = true;
-  };
+      home.sessionVariables = {
+        XCURSOR_SIZE = toString cursor.size;
+        XCURSOR_THEME = cursor.name;
+      };
 
-  home.packages = [
-    pkgs.nerd-fonts.fira-code
-    iconPackage
-    cursorPackage
-  ];
-
-  home.sessionVariables = {
-    XCURSOR_SIZE = toString cursor.size;
-    XCURSOR_THEME = cursor.name;
-  };
-
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = icons.name;
-      package = iconPackage;
-    };
-    cursorTheme = {
-      name = cursor.name;
-      package = cursorPackage;
-      size = cursor.size;
-    };
-    font = {
-      name = f.serif;
-      package = pkgs.stix-two;
-      size = f.sizes.serifUi;
-    };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-      gtk-cursor-theme-name = cursor.name;
-      gtk-cursor-theme-size = cursor.size;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-      gtk-cursor-theme-name = cursor.name;
-      gtk-cursor-theme-size = cursor.size;
-    };
+      gtk = {
+        enable = true;
+        iconTheme = {
+          name = icons.name;
+          package = iconPackage;
+        };
+        cursorTheme = {
+          name = cursor.name;
+          package = cursorPackage;
+          size = cursor.size;
+        };
+        font = {
+          name = f.serif;
+          package = pkgs.stix-two;
+          size = f.sizes.serifUi;
+        };
+        gtk3.extraConfig = {
+          gtk-application-prefer-dark-theme = 1;
+          gtk-cursor-theme-name = cursor.name;
+          gtk-cursor-theme-size = cursor.size;
+        };
+        gtk4.extraConfig = {
+          gtk-application-prefer-dark-theme = 1;
+          gtk-cursor-theme-name = cursor.name;
+          gtk-cursor-theme-size = cursor.size;
+        };
+      };
   };
 }

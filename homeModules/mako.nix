@@ -1,4 +1,4 @@
-{ theme ? import ../themes/default.nix, ... }:
+{ config, lib, theme ? import ../themes/default.nix, ... }:
 
 let
   c = theme.colors;
@@ -7,41 +7,49 @@ let
   s = theme.layout.spacing;
 in
 {
-  services.mako = {
-    enable = true;
+  options.flatwork.mako.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable Mako notification styling.";
+  };
 
-    settings = {
-      default-timeout = 10000;
-      background-color = c.background;
-      text-color = c.text;
-      border-color = c.border;
-      progress-color = c.success;
+  config = lib.mkIf config.flatwork.mako.enable {
+      services.mako = {
+        enable = true;
 
-      border-size = g.border.width;
-      padding = s.lg;
-      margin = s.xl;
-      font = "${f.mono} ${toString f.sizes.ui}";
-      anchor = "top-right";
-      max-visible = 5;
-      layer = "overlay";
-    };
+        settings = {
+          default-timeout = 10000;
+          background-color = c.background;
+          text-color = c.text;
+          border-color = c.border;
+          progress-color = c.success;
 
-    extraConfig = ''
-      [urgency=high]
-      border-color=${c.error}
-      default-timeout=0
+          border-size = g.border.width;
+          padding = s.lg;
+          margin = s.xl;
+          font = "${f.mono} ${toString f.sizes.ui}";
+          anchor = "top-right";
+          max-visible = 5;
+          layer = "overlay";
+        };
 
-      [category=status-update]
-      anchor=top-center
-      margin=${toString s.xl},0,0,0
-      padding=${toString s.xs}
-      width=300
-      text-alignment=center
-      group-by=category
-      format=%s
-      default-timeout=3000
-      border-color=${c.border}
-      progress-color=${c.border}
-    '';
+        extraConfig = ''
+          [urgency=high]
+          border-color=${c.error}
+          default-timeout=0
+
+          [category=status-update]
+          anchor=top-center
+          margin=${toString s.xl},0,0,0
+          padding=${toString s.xs}
+          width=300
+          text-alignment=center
+          group-by=category
+          format=%s
+          default-timeout=3000
+          border-color=${c.border}
+          progress-color=${c.border}
+        '';
+      };
   };
 }
