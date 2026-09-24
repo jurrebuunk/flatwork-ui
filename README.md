@@ -4,14 +4,14 @@ Reusable Nix flake for Jurre's desktop design system: a modern dark, academic/te
 
 The design intent lives in [`DESIGN.MD`](./DESIGN.MD). The machine-readable tokens live in [`themes/hue-gradient-design.nix`](./themes/hue-gradient-design.nix).
 
-This flake intentionally contains **style**, not personal machine workflow. Keybinds, monitor names, startup apps, privacy policies, Waybar module layout, Obsidian vault paths, etc. should live in the consuming config.
+This flake contains the reusable desktop theme plus selected full-experience app modules. Firefox and Waybar intentionally include Jurre's UI/workflow defaults so consumers get the same browser/bar experience. Machine/session config such as WM keybinds, monitor names, startup apps, and personal paths should still live in the consuming config.
 
 ## Exports
 
 - `lib.themes.default` / `lib.themes.hue-gradient-design` — theme tokens
 - `homeManagerModules.default` / `homeModules.default` — desktop + app styling bundle
-- `homeManagerModules.desktop` — GTK, Mako, Waybar CSS, Rofi theme, SwayOSD CSS
-- `homeManagerModules.apps` — Alacritty colors, Firefox CSS, Fastfetch colors, Bash prompt
+- `homeManagerModules.desktop` — GTK, Mako, full Waybar config/style, Rofi theme, SwayOSD CSS
+- `homeManagerModules.apps` — Alacritty colors, full Firefox config/CSS, Fastfetch colors, Bash prompt
 - individual Home Manager modules, e.g. `homeManagerModules.gtk`, `homeManagerModules.alacritty`, `homeManagerModules.bash-prompt`
 - `nixosModules.fonts` — system font packages
 - `overlays.default` — compatibility overlay for `ibm-plex-mono-nerd`
