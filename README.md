@@ -64,7 +64,7 @@ These are useful for consuming the palette from non-Nix/Home Manager projects.
 
 ## Full NixOS + Home Manager usage
 
-If you want another coding agent to install the full experience in an existing repo, give it [`prompt.md`](./prompt.md). The prompt tells the agent to use the exported modules directly instead of recreating app configs from tokens.
+If you want another coding agent to install the full experience in an existing repo, give it [`PROMPT.md`](./PROMPT.md). The prompt tells the agent to use the exported modules directly instead of recreating app configs from tokens.
 
 ```nix
 {
