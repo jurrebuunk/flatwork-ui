@@ -36,15 +36,11 @@
         alacritty = ./homeModules/alacritty.nix;
         firefox = ./homeModules/firefox.nix;
         fastfetch = ./homeModules/fastfetch.nix;
-        obsidian = ./homeModules/obsidian.nix;
-        supersonic = ./homeModules/supersonic.nix;
-        libreoffice = ./homeModules/libreoffice.nix;
         bash-prompt = ./homeModules/bash-prompt.nix;
-
-        # More opinionated/session-level modules; import explicitly if wanted.
-        sway-style = ./homeModules/sway-style.nix;
-        niri-opinionated = ./homeModules/niri-opinionated.nix;
       };
+
+      # Conventional alias used by many flakes.
+      homeManagerModules = self.homeModules;
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
     };

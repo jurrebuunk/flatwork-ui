@@ -4,15 +4,15 @@ Reusable Nix flake for Jurre's desktop design system: a modern dark, academic/te
 
 The design intent lives in [`DESIGN.MD`](./DESIGN.MD). The machine-readable tokens live in [`themes/hue-gradient-design.nix`](./themes/hue-gradient-design.nix).
 
+This flake intentionally contains **style**, not personal machine workflow. Keybinds, monitor names, startup apps, privacy policies, Waybar module layout, Obsidian vault paths, etc. should live in the consuming config.
+
 ## Exports
 
 - `lib.themes.default` / `lib.themes.hue-gradient-design` — theme tokens
-- `homeModules.default` — desktop + app theming bundle
-- `homeModules.desktop` — GTK, Mako, Waybar, Rofi, SwayOSD
-- `homeModules.apps` — Alacritty, Firefox, Fastfetch, Obsidian, Supersonic, LibreOffice, Bash prompt
-- individual Home Manager modules, e.g. `homeModules.gtk`, `homeModules.alacritty`
-- `homeModules.sway-style` — Sway visual styling only
-- `homeModules.niri-opinionated` — copied opinionated Niri session config; import explicitly only if wanted
+- `homeManagerModules.default` / `homeModules.default` — desktop + app styling bundle
+- `homeManagerModules.desktop` — GTK, Mako, Waybar CSS, Rofi theme, SwayOSD CSS
+- `homeManagerModules.apps` — Alacritty colors, Firefox CSS, Fastfetch colors, Bash prompt
+- individual Home Manager modules, e.g. `homeManagerModules.gtk`, `homeManagerModules.alacritty`, `homeManagerModules.bash-prompt`
 - `nixosModules.fonts` — system font packages
 - `overlays.default` — compatibility overlay for `ibm-plex-mono-nerd`
 
@@ -34,10 +34,7 @@ The design intent lives in [`DESIGN.MD`](./DESIGN.MD). The machine-readable toke
           };
 
           home-manager.users.me.imports = [
-            jurre-theme.homeModules.default
-            # Optional WM styling:
-            # jurre-theme.homeModules.sway-style
-            # jurre-theme.homeModules.niri-opinionated
+            jurre-theme.homeManagerModules.default
           ];
         }
       ];
