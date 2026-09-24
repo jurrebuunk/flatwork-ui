@@ -4,12 +4,16 @@ let
   c = theme.colors;
   g = theme.geometry;
   spacing = theme.layout.spacing;
+  topMarginPx = spacing.xl;
+  # swayosd's top_margin is a screen-height ratio. Keep the default aligned
+  # with Mako/Rofi's 16px theme margin on the 1080px laptop panel.
+  topMarginRatio = "0.015";
 in
 {
   xdg.configFile."swayosd/config.toml".text = ''
     [server]
-    # ~16px on a 1080px panel: twice the 8px window/screen gap.
-    top_margin = 0.015
+    # Same visual top gap as Mako/Rofi: ${toString topMarginPx}px on the main panel.
+    top_margin = ${topMarginRatio}
     min_brightness = 5
     show_percentage = true
 
@@ -19,6 +23,7 @@ in
   xdg.configFile."swayosd/style.css".text = ''
     window#osd {
       min-height: 40px;
+      margin-top: ${toString topMarginPx}px;
       border-radius: ${g.radiusPx};
       border: ${g.border.widthPx} solid ${c.accent};
       background: ${c.background};
