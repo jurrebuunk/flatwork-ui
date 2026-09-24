@@ -105,7 +105,7 @@ in
       };
 
       element-text = {
-        vertical-align = 0.5;
+        vertical-align = "0.5";
         background-color = "transparent";
         text-color = "inherit";
       };
