@@ -56,10 +56,52 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           theme = themes.default;
+          themeNames = builtins.attrNames themes;
+          writeThemeFiles = nixpkgs.lib.concatMapStringsSep "\n"
+            (name:
+              let
+                namedTheme = themes.${name};
+              in
+              ''
+                mkdir -p "$out/themes/${name}"
+                cat > "$out/themes/${name}/palette.json" <<'EOF'
+                ${themeLib.themeToJson namedTheme}
+                EOF
+                cat > "$out/themes/${name}/vars.css" <<'EOF'
+                ${themeLib.themeToCssVars namedTheme}
+                EOF
+              '')
+            themeNames;
+          releaseVersion = self.shortRev or "dev";
         in
         {
           palette-json = pkgs.writeText "flatwork-palette.json" (themeLib.themeToJson theme);
           css-vars = pkgs.writeText "flatwork-vars.css" (themeLib.themeToCssVars theme);
+
+          all-theme-files = pkgs.runCommand "flatwork-theme-files" { } ''
+            mkdir -p "$out"
+            ${writeThemeFiles}
+          '';
+
+          wallpapers = pkgs.runCommand "flatwork-wallpapers" { } ''
+            mkdir -p "$out"
+            cp -R ${./themes/wallpapers}/. "$out/"
+          '';
+
+          release-bundle = pkgs.runCommand "flatwork-ui-${releaseVersion}.tar.gz" { } ''
+            bundle="flatwork-ui-${releaseVersion}"
+            mkdir -p "$bundle"
+
+            cp ${./README.md} "$bundle/README.md"
+            cp ${./DESIGN.md} "$bundle/DESIGN.md"
+            cp ${./PROMPT.md} "$bundle/PROMPT.md"
+            cp -R ${./docs} "$bundle/docs"
+            cp -R ${self.packages.${system}.all-theme-files} "$bundle/theme-files"
+            cp -R ${self.packages.${system}.wallpapers} "$bundle/wallpapers"
+
+            ${pkgs.gnutar}/bin/tar -czf "$out" "$bundle"
+          '';
+
           default = self.packages.${system}.css-vars;
         }
       );

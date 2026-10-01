@@ -1,0 +1,47 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-release-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v27
+
+      - name: Build release assets
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+
+          nix build .#css-vars --out-link result-css-vars
+          cp -L result-css-vars dist/flatwork-vars.css
+
+          nix build .#palette-json --out-link result-palette-json
+          cp -L result-palette-json dist/flatwork-palette.json
+
+          nix build .#all-theme-files --out-link result-theme-files
+          tar -czf dist/flatwork-theme-files.tar.gz -C result-theme-files .
+
+          nix build .#wallpapers --out-link result-wallpapers
+          tar -czf dist/flatwork-wallpapers.tar.gz -C result-wallpapers .
+
+          nix build .#release-bundle --out-link result-release-bundle
+          cp -L result-release-bundle "dist/flatwork-ui-${GITHUB_REF_NAME}.tar.gz"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/flatwork-vars.css
+            dist/flatwork-palette.json
+            dist/flatwork-theme-files.tar.gz
+            dist/flatwork-wallpapers.tar.gz
+            dist/flatwork-ui-${{ github.ref_name }}.tar.gz
