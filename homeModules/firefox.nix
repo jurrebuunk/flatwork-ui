@@ -58,7 +58,10 @@ in
             --toolbox-non-lwt-bgcolor-inactive: var(--fw-bg) !important;
             --lwt-accent-color: var(--fw-bg) !important;
             --lwt-accent-color-inactive: var(--fw-bg) !important;
-            --chrome-content-separator-color: var(--fw-border) !important;
+            /* No separator line between the top bar and the page */
+            --chrome-content-separator-color: transparent !important;
+            /* Match the URL bar height to the toolbar buttons */
+            --urlbar-height: ${toString spacing.xxxl}px !important;
             --content-area-shadow: none !important;
 
             --toolbar-field-background-color: var(--fw-surface) !important;
@@ -98,7 +101,13 @@ in
           #tabbrowser-tabpanels {
             background-color: var(--fw-bg) !important;
             color: var(--fw-text) !important;
-            border-color: var(--fw-border) !important;
+          }
+
+          #navigator-toolbox,
+          #nav-bar,
+          #PersonalToolbar {
+            border-bottom: none !important;
+            box-shadow: none !important;
           }
 
           /* Flat, square page area: no card, shadow or gap */
