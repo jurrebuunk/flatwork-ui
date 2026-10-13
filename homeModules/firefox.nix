@@ -28,63 +28,80 @@ in
         profiles.default = {
           name = "default";
 
+        # Colour roles follow DESIGN.md:
+        #   chrome + page canvas  -> background
+        #   fields, menus, popups -> surface, 1px border
+        #   hover                 -> states.hover (surface change)
+        #   active / selection    -> states.active (accent), text on background
+        #   keyboard focus        -> states.focus
         userChrome = ''
+          /* === TOKENS === */
           :root {
-            --toolbar-bgcolor: ${c.background} !important;
-            --toolbar-text-color: ${c.text} !important;
+            --fw-bg: ${c.background};
+            --fw-surface: ${c.surface};
+            --fw-hover: ${c.states.hover};
+            --fw-active: ${c.states.active};
+            --fw-focus: ${c.states.focus};
+            --fw-text: ${c.text};
+            --fw-text-muted: ${c.textMuted};
+            --fw-border: ${c.border};
+            --fw-border-width: ${g.border.widthPx};
+            --fw-radius: ${g.radiusPx};
 
-            --tab-border-color: ${c.border} !important; /* use gray for all borders */
-
-            --tab-border-radius: ${g.radiusPx} !important;
-            --toolbarbutton-border-radius: ${g.radiusPx} !important;
-            --urlbar-border-radius: ${g.radiusPx} !important;
-            --toolbarbutton-border-color: ${c.border};  /* Cha ffnge the border color here */
-            --toolbarbutton-hover-bg: ${c.states.hover};      /* Background on hover */
-            --toolbarbutton-padding: 0px 0px;       /* Adjust padding inside buttons */
-            --toolbarbutton-radius: ${g.radiusPx};            /* Border radius for buttons */
-            --toolbarbutton-spacing: ${toString spacing.xxs}px;           /* Space between buttons */
-            --toolbarbutton-first-left: ${toString spacing.sm}px;       /* Left margin for first button (Back) */
-          }
-
-          /* Toolbar */
-          #navigator-toolbox {
-            background-color: var(--toolbar-bgcolor) !important;
-            color: var(--toolbar-text-color) !important;
-          }
-
-          /* === NEW FIREFOX CHROME COLOURS === */
-          :root {
-            --toolbox-bgcolor: ${c.background} !important;
-            --toolbox-bgcolor-inactive: ${c.background} !important;
-            --toolbox-non-lwt-bgcolor: ${c.background} !important;
-            --toolbox-non-lwt-bgcolor-inactive: ${c.background} !important;
-            --lwt-accent-color: ${c.background} !important;
-            --lwt-accent-color-inactive: ${c.background} !important;
-            --toolbar-field-background-color: ${c.background} !important;
-            --toolbar-field-focus-background-color: ${c.background} !important;
-            --toolbar-field-color: ${c.text} !important;
-            --toolbar-field-focus-color: ${c.text} !important;
-            --toolbar-field-focus-border-color: ${c.border} !important;
-            --focus-outline-color: ${c.border} !important;
-            --arrowpanel-background: ${c.background} !important;
-            --arrowpanel-color: ${c.text} !important;
-            --arrowpanel-border-color: ${c.border} !important;
-            --arrowpanel-border-radius: ${g.radiusPx} !important;
-            --panel-border-radius: ${g.radiusPx} !important;
-            --border-radius-small: ${g.radiusPx} !important;
-            --border-radius-medium: ${g.radiusPx} !important;
-            --border-radius-large: ${g.radiusPx} !important;
-            --chrome-content-separator-color: ${c.border} !important;
+            /* Firefox chrome variables mapped onto Flatwork tokens */
+            --toolbar-bgcolor: var(--fw-bg) !important;
+            --toolbar-color: var(--fw-text) !important;
+            --toolbox-bgcolor: var(--fw-bg) !important;
+            --toolbox-bgcolor-inactive: var(--fw-bg) !important;
+            --toolbox-textcolor: var(--fw-text) !important;
+            --toolbox-non-lwt-bgcolor: var(--fw-bg) !important;
+            --toolbox-non-lwt-bgcolor-inactive: var(--fw-bg) !important;
+            --lwt-accent-color: var(--fw-bg) !important;
+            --lwt-accent-color-inactive: var(--fw-bg) !important;
+            --chrome-content-separator-color: var(--fw-border) !important;
             --content-area-shadow: none !important;
+
+            --toolbar-field-background-color: var(--fw-surface) !important;
+            --toolbar-field-background-color-focus: var(--fw-surface) !important;
+            --toolbar-field-color: var(--fw-text) !important;
+            --toolbar-field-focus-color: var(--fw-text) !important;
+            --toolbar-field-border-color: var(--fw-border) !important;
+            --toolbar-field-border-color-focus: var(--fw-focus) !important;
+            --focus-outline-color: var(--fw-focus) !important;
+            --link-color: ${c.accent} !important;
+
+            --toolbarbutton-border-radius: var(--fw-radius) !important;
+            --toolbarbutton-hover-background: var(--fw-hover) !important;
+            --toolbarbutton-active-background: var(--fw-hover) !important;
+            --tab-border-radius: var(--fw-radius) !important;
+            --urlbar-border-radius: var(--fw-radius) !important;
+            --border-radius-small: var(--fw-radius) !important;
+            --border-radius-medium: var(--fw-radius) !important;
+            --border-radius-large: var(--fw-radius) !important;
+            --arrowpanel-border-radius: var(--fw-radius) !important;
+            --panel-border-radius: var(--fw-radius) !important;
+
+            --arrowpanel-background: var(--fw-surface) !important;
+            --arrowpanel-color: var(--fw-text) !important;
+            --arrowpanel-border-color: var(--fw-border) !important;
+            --arrowpanel-dimmed: var(--fw-hover) !important;
+            --arrowpanel-dimmed-further: var(--fw-hover) !important;
           }
 
+          /* === CHROME + CONTENT AREA === */
+          #navigator-toolbox,
+          #TabsToolbar,
+          #nav-bar,
+          #PersonalToolbar,
           #browser,
           #tabbrowser-tabbox,
           #tabbrowser-tabpanels {
-            background-color: var(--toolbar-bgcolor) !important;
+            background-color: var(--fw-bg) !important;
+            color: var(--fw-text) !important;
+            border-color: var(--fw-border) !important;
           }
 
-          /* Content area: no rounded card, shadow or gap around the page */
+          /* Flat, square page area: no card, shadow or gap */
           #tabbrowser-tabbox,
           #tabbrowser-tabpanels,
           .browserContainer,
@@ -96,21 +113,8 @@ in
             margin: 0 !important;
           }
 
-          /* URL bar dropdown + tab hover preview */
-          .urlbarView,
-          #urlbar[open] > .urlbar-background,
-          #tab-preview-panel {
-            background-color: ${c.background} !important;
-            color: ${c.text} !important;
-            border-radius: ${g.radiusPx} !important;
-          }
-
-          .urlbarView-row,
-          .urlbarView-row-inner {
-            border-radius: ${g.radiusPx} !important;
-          }
-
           /* === SIDEBAR (removed entirely) === */
+          #sidebar-container,
           #sidebar-main,
           #sidebar-launcher-splitter,
           #sidebar-box,
@@ -120,141 +124,216 @@ in
           }
 
           /* === TABS === */
-          #tabbrowser-tabs {
-            --tab-border-radius: ${g.radiusPx} !important;
+          .tabbrowser-tab {
+            --tab-close-button-border-color: transparent !important;
+            --tab-close-button-border-color-hover: transparent !important;
+            --tab-close-button-border-color-active: transparent !important;
           }
 
           .tab-background {
-            border-radius: ${g.radiusPx} !important;
-            background-color: ${c.background} !important;
-
-            /* Kill Proton visuals */
+            background-color: var(--fw-bg) !important;
+            border: var(--fw-border-width) solid var(--fw-border) !important;
+            border-radius: var(--fw-radius) !important;
             outline: none !important;
-            box-shadow: ${g.boxShadow} !important;
+            box-shadow: none !important;
             clip-path: none !important;
-
-            /* Real square border */
-            border: ${g.border.widthPx} solid var(--tab-border-color) !important;
-            margin: 0 5 0 5px !important;
-          }
-          
-          /* Top tab toolbar */
-          #TabsToolbar {
-            background-color: var(--toolbar-bgcolor) !important;
-            color: var(--toolbar-text-color) !important;
           }
 
-          /* Hide sidebar customize/settings controls across Firefox UI variants */
-          #sidebar-customize-button,
-          #sidebar-customize,
-          #sidebar-settings-button,
-          #sidebar-settings-expand-button,
-          #sidebar-main-tools [id*="customize"],
-          #sidebar-main-tools [data-l10n-id*="customize"],
-          #sidebar-main-tools [data-l10n-id*="settings"],
-          #sidebar-main-tools [aria-label*="customize" i],
-          #sidebar-main-tools [aria-label*="settings" i],
-          #sidebar-main-tools [tooltiptext*="customize" i],
-          #sidebar-main-tools [tooltiptext*="settings" i],
-          #sidebar-main-tools [label*="customize" i],
-          #sidebar-main-tools [label*="settings" i],
-          #sidebar-box [oncommand*="customizeSidebar"],
-          #sidebar-box [command*="customize"] {
-            display: none !important;
-            visibility: collapse !important;
-          }
-
-          .tab-background[selected="true"] {
-            background-color: ${c.states.active} !important;
-          }
-
-          .tab-background:hover {
-            background-color: ${c.states.hover} !important;
-          }
-
-          /* Remove Proton separators */
           .tab-background::before,
           .tab-background::after {
             display: none !important;
           }
 
+          .tabbrowser-tab:hover > .tab-stack > .tab-background:not([selected]) {
+            background-color: var(--fw-hover) !important;
+          }
+
+          .tab-background[selected] {
+            background-color: var(--fw-active) !important;
+            border-color: var(--fw-active) !important;
+          }
+
+          .tabbrowser-tab[selected] .tab-label,
+          .tabbrowser-tab[selected] .tab-close-button {
+            color: var(--fw-bg) !important;
+          }
+
+          .tab-close-button {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border-radius: var(--fw-radius) !important;
+            background-color: transparent !important;
+          }
+
+          .tab-close-button:hover {
+            background-color: var(--fw-hover) !important;
+            color: var(--fw-text) !important;
+          }
+
           /* === TOOLBAR BUTTONS (Back, Forward, Reload, etc.) === */
-          /* Base style for all toolbar buttons */
           #nav-bar .toolbarbutton-1 {
-              border-radius: var(--toolbarbutton-radius) !important;
-              box-shadow: ${g.boxShadow} !important;
-              outline: none !important;
-
-              border: ${g.border.widthPx} solid ${c.border} !important; /* Gray border */
-              box-sizing: border-box;   /* Border included in size */
-
-              /* Enforce explicit square size (16px icon + 2*6px padding + 2*2px border = 32px) */
-              width: ${toString spacing.xxxl}px !important;
-              height: ${toString spacing.xxxl}px !important;
-              
-              /* Center vertically in the toolbar */
-              margin-top: auto !important;
-              margin-bottom: auto !important;
-
-              /* Remove default padding */
-              padding: 0 !important;
+            width: ${toString spacing.xxxl}px !important;
+            height: ${toString spacing.xxxl}px !important;
+            margin-block: auto !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+            border: var(--fw-border-width) solid var(--fw-border) !important;
+            border-radius: var(--fw-radius) !important;
+            box-shadow: none !important;
+            outline: none !important;
           }
 
-          /* Explicitly link button size to inner padding to prevent icon resizing issues */
-          #nav-bar .toolbarbutton-1 > .toolbarbutton-icon {
-              padding: ${toString spacing.sm}px !important;
-              width: ${toString spacing.xl}px !important;
-              height: ${toString spacing.xl}px !important;
-              box-sizing: content-box !important;
+          #nav-bar .toolbarbutton-1 > .toolbarbutton-icon,
+          #nav-bar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+            width: ${toString spacing.xl}px !important;
+            height: ${toString spacing.xl}px !important;
+            padding: ${toString spacing.sm}px !important;
+            box-sizing: content-box !important;
+            border-radius: var(--fw-radius) !important;
+            background: none !important;
           }
 
-          /* Left margin only for the first button (Back) */
           #nav-bar .toolbarbutton-1:first-child {
-              margin-left: var(--toolbarbutton-first-left) !important;
+            margin-inline-start: ${toString spacing.sm}px !important;
           }
 
-          /* Spacing between other buttons */
           #nav-bar .toolbarbutton-1 + .toolbarbutton-1 {
-              margin-left: var(--toolbarbutton-spacing) !important;
+            margin-inline-start: ${toString spacing.xxs}px !important;
           }
 
-          /* Right margin for the last button */
           #nav-bar .toolbarbutton-1:last-child {
-              margin-right: ${toString spacing.sm}px !important;
+            margin-inline-end: ${toString spacing.sm}px !important;
           }
 
-          /* Hover and active states */
-          #nav-bar .toolbarbutton-1:hover,
-          #nav-bar .toolbarbutton-1:active {
-              border: ${g.border.widthPx} solid ${c.border} !important;
+          #nav-bar .toolbarbutton-1:not([disabled]):hover {
+            background-color: var(--fw-hover) !important;
           }
 
+          #nav-bar .toolbarbutton-1:not([disabled]):is([open], [checked], :hover:active) {
+            background-color: var(--fw-hover) !important;
+            border-color: var(--fw-active) !important;
+          }
 
-
-
-          /* === URL BAR === */
+          /* === URL BAR + DROPDOWN === */
           #urlbar,
-          #urlbar-background {
-            border-radius: ${g.radiusPx} !important;
-            box-shadow: ${g.boxShadow} !important;
+          .urlbar {
+            --urlbar-background-color: var(--fw-surface) !important;
+            --urlbar-background-color-focus: var(--fw-surface) !important;
+            --urlbar-background-border: var(--fw-border-width) solid var(--fw-border) !important;
+            --urlbar-background-border-open: var(--fw-border-width) solid var(--fw-border) !important;
+            --urlbar-background-border-focused: var(--fw-border-width) solid var(--fw-focus) !important;
+            --urlbar-background-border-radius: var(--fw-radius) !important;
+            --urlbar-background-box-shadow-open: none !important;
+            --urlbar-box-background-color: var(--fw-surface) !important;
+            --urlbar-box-background-color-hover: var(--fw-hover) !important;
+            --urlbar-box-background-color-active: var(--fw-hover) !important;
+            --urlbar-box-background-color-focus: var(--fw-hover) !important;
+            --urlbarview-background-color-hover: var(--fw-hover) !important;
+            --urlbarview-background-color-selected: var(--fw-active) !important;
+            --urlbarview-action-button-background-color: var(--fw-surface) !important;
+            --urlbarview-action-button-background-color-hover: var(--fw-hover) !important;
+            border-radius: var(--fw-radius) !important;
+            box-shadow: none !important;
             outline: none !important;
-            border: ${g.border.widthPx} solid var(--tab-border-color) !important;
           }
 
-          /* REMOVE border only from the inner input */
-          #urlbar input,
-          #urlbar .textbox-input-box {
+          .urlbar-background,
+          .urlbarView-background {
+            border-radius: var(--fw-radius) !important;
+            box-shadow: none !important;
+          }
+
+          .urlbar-input-container,
+          #urlbar input {
             border: 0 !important;
-            box-shadow: ${g.boxShadow} !important;
             outline: none !important;
+            box-shadow: none !important;
             background: transparent !important;
+          }
+
+          .urlbarView {
+            color: var(--fw-text) !important;
+          }
+
+          .urlbarView-row,
+          .urlbarView-row-inner,
+          .urlbarView-favicon,
+          .urlbarView-button {
+            border-radius: var(--fw-radius) !important;
+          }
+
+          .urlbarView-url,
+          .urlbarView-action {
+            color: ${c.accent} !important;
+          }
+
+          .urlbarView-row[selected] .urlbarView-url,
+          .urlbarView-row[selected] .urlbarView-action,
+          .urlbarView-row[selected] .urlbarView-title,
+          .urlbarView-row[selected] .urlbarView-row-inner {
+            color: var(--fw-bg) !important;
+          }
+
+          .urlbarView-group-aboveitems,
+          .urlbarView-title-separator,
+          .urlbarView-secondary {
+            color: var(--fw-text-muted) !important;
+          }
+
+          /* === MENUS, PANELS, TOOLTIPS, TAB HOVER PREVIEW === */
+          menupopup,
+          panel,
+          tooltip,
+          #tab-preview-panel {
+            --panel-background-color: var(--fw-surface) !important;
+            --panel-background: var(--fw-surface) !important;
+            --panel-color: var(--fw-text) !important;
+            --panel-border-color: var(--fw-border) !important;
+            --panel-border-radius: var(--fw-radius) !important;
+            --panel-shadow: none !important;
+            --panel-shadow-margin: 0px !important;
+            --menuitem-border-radius: var(--fw-radius) !important;
+            --menu-background-color: var(--fw-surface) !important;
+            --menu-color: var(--fw-text) !important;
+            --menu-border-color: var(--fw-border) !important;
+            --menuitem-hover-background-color: var(--fw-hover) !important;
+          }
+
+          tooltip {
+            appearance: none !important;
+            background-color: var(--fw-surface) !important;
+            color: var(--fw-text) !important;
+            border: var(--fw-border-width) solid var(--fw-border) !important;
+            border-radius: var(--fw-radius) !important;
+            box-shadow: none !important;
+          }
+
+          #tab-preview-panel .tab-preview-uri,
+          #tab-preview-panel .tab-preview-pid-activeness {
+            color: var(--fw-text-muted) !important;
+            font-style: italic !important;
+          }
+
+          /* Hide leftover sidebar customize/settings entries */
+          #sidebar-context-menu-customize-sidebar,
+          #sidebar-context-menu-enable-vertical-tabs {
+            display: none !important;
           }
         '';
 
         userContent = ''
           @-moz-document url-prefix("about:"), url-prefix("chrome:") {
             :root {
+              --border-radius-small: ${g.radiusPx} !important;
               --border-radius-medium: ${g.radiusPx} !important;
+              --border-radius-large: ${g.radiusPx} !important;
+              --border-radius-circle: ${g.radiusPx} !important;
+              --link-color: ${c.accent} !important;
+              --color-accent-primary: ${c.accent} !important;
+              --color-accent-primary-hover: ${c.accentBright} !important;
+              --color-accent-primary-active: ${c.accentBright} !important;
+              --focus-outline-color: ${c.states.focus} !important;
             }
 
             .top-site-outer .tile {
@@ -263,7 +342,22 @@ in
             }
           }
 
-          @-moz-document url("about:home"), url("about:newtab") {
+          @-moz-document url("about:home"), url("about:newtab"), url("about:privatebrowsing") {
+            :root {
+              --newtab-background-color: ${c.background} !important;
+              --newtab-background-color-secondary: ${c.surface} !important;
+              --newtab-background-card: ${c.surface} !important;
+              --newtab-text-primary-color: ${c.text} !important;
+              --newtab-text-secondary-color: ${c.textMuted} !important;
+              --newtab-primary-action-background: ${c.accent} !important;
+              --newtab-button-background: ${c.surface} !important;
+              --newtab-button-hover-background: ${c.states.hover} !important;
+              --newtab-button-active-background: ${c.states.hover} !important;
+              --newtab-border-color: ${c.border} !important;
+              --newtab-element-hover-color: ${c.states.hover} !important;
+              --newtab-wordmark-color: ${c.text} !important;
+            }
+
             :root,
             body,
             html,
@@ -272,6 +366,11 @@ in
             .activity-stream .outer-wrapper::before {
               background: ${c.background} !important;
               background-image: none !important;
+            }
+
+            /* Square everything on the new tab page */
+            * {
+              border-radius: ${g.radiusPx} !important;
             }
 
             /* Hide new tab "Customize" button (selector varies by version) */
