@@ -52,22 +52,71 @@ in
             color: var(--toolbar-text-color) !important;
           }
 
-          /* === SIDEBAR === */
-          #sidebar-main {
-            min-width: 1px !important;
-            width: 1px !important;
-            max-width: 1px !important;
-            overflow: hidden !important;
-            opacity: 0 !important;
-            transition: width 150ms ease, min-width 150ms ease, max-width 150ms ease, opacity 150ms ease !important;
+          /* === NEW FIREFOX CHROME COLOURS === */
+          :root {
+            --toolbox-bgcolor: ${c.background} !important;
+            --toolbox-bgcolor-inactive: ${c.background} !important;
+            --toolbox-non-lwt-bgcolor: ${c.background} !important;
+            --toolbox-non-lwt-bgcolor-inactive: ${c.background} !important;
+            --lwt-accent-color: ${c.background} !important;
+            --lwt-accent-color-inactive: ${c.background} !important;
+            --toolbar-field-background-color: ${c.background} !important;
+            --toolbar-field-focus-background-color: ${c.background} !important;
+            --toolbar-field-color: ${c.text} !important;
+            --toolbar-field-focus-color: ${c.text} !important;
+            --toolbar-field-focus-border-color: ${c.border} !important;
+            --focus-outline-color: ${c.border} !important;
+            --arrowpanel-background: ${c.background} !important;
+            --arrowpanel-color: ${c.text} !important;
+            --arrowpanel-border-color: ${c.border} !important;
+            --arrowpanel-border-radius: ${g.radiusPx} !important;
+            --panel-border-radius: ${g.radiusPx} !important;
+            --border-radius-small: ${g.radiusPx} !important;
+            --border-radius-medium: ${g.radiusPx} !important;
+            --border-radius-large: ${g.radiusPx} !important;
+            --chrome-content-separator-color: ${c.border} !important;
+            --content-area-shadow: none !important;
           }
 
-          #sidebar-main:hover,
-          #sidebar-main[expanded]:hover {
-            min-width: 42px !important;
-            width: 42px !important;
-            max-width: 42px !important;
-            opacity: 1 !important;
+          #browser,
+          #tabbrowser-tabbox,
+          #tabbrowser-tabpanels {
+            background-color: var(--toolbar-bgcolor) !important;
+          }
+
+          /* Content area: no rounded card, shadow or gap around the page */
+          #tabbrowser-tabbox,
+          #tabbrowser-tabpanels,
+          .browserContainer,
+          .browserStack,
+          .browserStack > browser {
+            border-radius: 0 !important;
+            outline: none !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+          }
+
+          /* URL bar dropdown + tab hover preview */
+          .urlbarView,
+          #urlbar[open] > .urlbar-background,
+          #tab-preview-panel {
+            background-color: ${c.background} !important;
+            color: ${c.text} !important;
+            border-radius: ${g.radiusPx} !important;
+          }
+
+          .urlbarView-row,
+          .urlbarView-row-inner {
+            border-radius: ${g.radiusPx} !important;
+          }
+
+          /* === SIDEBAR (removed entirely) === */
+          #sidebar-main,
+          #sidebar-launcher-splitter,
+          #sidebar-box,
+          #sidebar-splitter,
+          #sidebar-button {
+            display: none !important;
           }
 
           /* === TABS === */
