@@ -25,7 +25,7 @@ The release workflow uploads:
 - `flatwork-saas.tar.gz` — the flatwork-saas web theme package.
 - `flatwork-ui-react-X.Y.Z.tgz` — the React package; its version is taken from the tag (`v0.2.0` → `0.2.0`).
 
-If the repository has an `NPM_TOKEN` secret (an npm automation token with publish rights on the `@flatwork-ui` scope), the release also runs `npm publish`. Without it the step is skipped and the GitHub tarball is the install source.
+If the repository has an `NPM_TOKEN` secret (an npm automation token with publish rights on the `@flatwork-ui` scope), the release also runs `npm publish`. Without it the step is skipped; publish by hand from the repo root with `npm publish -w @flatwork-ui/react --access public` (needs `npm login` and browser 2FA approval).
 
 GitHub also automatically provides source archives for the exact tag.
 

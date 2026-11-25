@@ -8,19 +8,13 @@ Themes with a web component library: **flatwork-saas** (dark, light, system).
 
 ## Install
 
-From a GitHub release (no registry needed, pinned to a version):
-
-```bash
-npm i https://github.com/jurrebuunk/flatwork-ui/releases/download/v0.2.0/flatwork-ui-react-0.2.0.tgz
-```
-
-From npm, once releases are published there:
-
 ```bash
 npm i @flatwork-ui/react
 ```
 
-Needs React 18 or newer.
+Needs React 18 or newer. Every GitHub release also attaches the package as
+`flatwork-ui-react-X.Y.Z.tgz`, installable with `npm i <url>` if you can't
+reach the npm registry.
 
 ## Use
 
