@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx";
-import { IconCheck } from "./icons";
+import { Icon } from "./icons";
+
 
 /** Floating list of actions or options. Use inside <DropdownMenu>, or on its own with role="listbox". */
 export const Menu = forwardRef<HTMLUListElement, HTMLAttributes<HTMLUListElement>>(function Menu({ className, role = "menu", ...props }, ref) {
@@ -33,7 +34,7 @@ export function MenuItem({ icon, shortcut, danger, selected, disabled, as = "but
     <>
       {icon}
       {children}
-      {shortcut ? <span className="fw-end">{shortcut}</span> : selected ? <IconCheck style={{ marginLeft: "auto", color: "var(--fw-accent)" }} /> : null}
+      {shortcut ? <span className="fw-end">{shortcut}</span> : selected ? <Icon name="check" style={{ marginLeft: "auto", color: "var(--fw-accent)" }} /> : null}
     </>
   );
   if (as === "li") {

@@ -12,16 +12,17 @@ import {
 } from "react";
 import { cx } from "./cx";
 import { Button } from "./Button";
-import { IconCheckCircle, IconError, IconInfo, IconWarning, IconX } from "./icons";
+import { Icon } from "./icons";
+
 
 export type Tone = "info" | "success" | "warning" | "error" | "neutral";
 
 const toneIcon: Record<Tone, ReactNode> = {
-  info: <IconInfo />,
-  success: <IconCheckCircle />,
-  warning: <IconWarning />,
-  error: <IconError />,
-  neutral: <IconInfo />,
+  info: <Icon name="info" />,
+  success: <Icon name="check_circle" />,
+  warning: <Icon name="warning" />,
+  error: <Icon name="error" />,
+  neutral: <Icon name="info" />,
 };
 
 export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -48,7 +49,7 @@ export function Alert({ tone = "info", title, icon, onDismiss, className, childr
       </div>
       {onDismiss && (
         <Button variant="ghost" size="sm" iconOnly aria-label="Dismiss" onClick={onDismiss} style={{ margin: "-6px -6px 0 0", color: "inherit" }}>
-          <IconX />
+          <Icon name="close" />
         </Button>
       )}
     </div>
@@ -75,7 +76,7 @@ export function Toast({ tone = "success", title, description, actions, onDismiss
       </div>
       {onDismiss && (
         <Button variant="ghost" size="sm" iconOnly aria-label="Dismiss" onClick={onDismiss} style={{ margin: "-6px -8px 0 0" }}>
-          <IconX />
+          <Icon name="close" />
         </Button>
       )}
     </div>
@@ -167,7 +168,7 @@ export function Tag({ onRemove, removeLabel, className, children, ...props }: Ta
       {children}
       {onRemove && (
         <button type="button" aria-label={removeLabel ?? (typeof children === "string" ? `Remove ${children}` : "Remove")} onClick={onRemove}>
-          <IconX />
+          <Icon name="close" />
         </button>
       )}
     </span>

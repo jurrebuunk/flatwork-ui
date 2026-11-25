@@ -54,7 +54,7 @@ Geist for interface language, IBM Plex Mono for machine values only. Weights 400
 * **Radius:** `xs` 4 (badges, checkboxes), `sm` 6 (controls), `md` 9 (cards), `lg` 12 (dialogs), `full` (switches, avatars, counts).
 * **Focus:** 2px ring in `focus`, 2px offset, on `:focus-visible`.
 * **Motion:** 120ms for hover, 220ms for panels, `ease-out`. Respect `prefers-reduced-motion`.
-* **Icons:** inline stroke SVG, 16px, 1.4 stroke, `currentColor`.
+* **Icons:** [Material Symbols](https://fonts.google.com/icons) **Rounded**, weight 400, grade 0, optical size 20, shown at 18px (16px in compact controls), `currentColor`. Rounded matches the round caps and joins of the original stroke icons; weight 400 matches their stroke. Use the filled style only for active/selected states (the current nav item).
 
 ## Components
 

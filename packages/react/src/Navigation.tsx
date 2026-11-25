@@ -13,7 +13,8 @@ import {
   type ReactNode,
 } from "react";
 import { cx } from "./cx";
-import { IconCheck, IconChevronLeft, IconChevronRight } from "./icons";
+import { Icon } from "./icons";
+
 
 /** Moves focus between sibling elements matching `selector` with arrow keys. */
 function rovingKeys(selector: string, orientation: "horizontal" | "vertical" = "horizontal") {
@@ -241,7 +242,7 @@ export function Breadcrumb({ items, renderLink, className, ...props }: Breadcrum
               <li>{last ? <span aria-current="page">{c.label}</span> : renderLink ? renderLink(c) : <a href={c.href}>{c.label}</a>}</li>
               {!last && (
                 <li aria-hidden="true">
-                  <IconChevronRight className="fw-sep" />
+                  <Icon name="chevron_right" className="fw-sep" />
                 </li>
               )}
             </Fragment>
@@ -276,7 +277,7 @@ export function Pagination({ page, count, onPageChange, className, ...props }: P
       <ul className="fw-pagination">
         <li>
           <button className="fw-page" type="button" aria-label="Previous page" disabled={page <= 1} onClick={() => onPageChange(page - 1)}>
-            <IconChevronLeft />
+            <Icon name="chevron_left" />
           </button>
         </li>
         {pageRange(page, count).map((p, i) =>
@@ -301,7 +302,7 @@ export function Pagination({ page, count, onPageChange, className, ...props }: P
         )}
         <li>
           <button className="fw-page" type="button" aria-label="Next page" disabled={page >= count} onClick={() => onPageChange(page + 1)}>
-            <IconChevronRight />
+            <Icon name="chevron_right" />
           </button>
         </li>
       </ul>
@@ -322,7 +323,7 @@ export function Stepper({ steps, current, className, ...props }: StepperProps) {
         <Fragment key={i}>
           {i > 0 && <li className="fw-step-line" aria-hidden="true" />}
           <li className={cx("fw-step", i < current && "is-done", i === current && "is-active")} aria-current={i === current ? "step" : undefined}>
-            <span className="fw-step-n">{i < current ? <IconCheck /> : i + 1}</span>
+            <span className="fw-step-n">{i < current ? <Icon name="check" /> : i + 1}</span>
             {label}
           </li>
         </Fragment>

@@ -8,12 +8,14 @@
 .fw-page:hover{background:var(--fw-surface-2); color:var(--fw-heading)}
 .fw-page.is-active{border-color:var(--fw-border-strong); background:var(--fw-surface-2); color:var(--fw-heading)}
 .fw-page svg{width:16px; height:16px}
+.fw-page .fw-icon{font-size:18px}
 .fw-page:disabled{opacity:.4; cursor:not-allowed}
 .fw-stepper{display:flex; align-items:center; gap:12px; list-style:none; margin:0; padding:0}
 .fw-step{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--fw-muted); white-space:nowrap}
 .fw-step-n{display:grid; place-content:center; width:24px; height:24px; border:1px solid var(--fw-border-strong); border-radius:50%; font-family:var(--fw-mono); font-size:12px}
 .fw-step.is-done .fw-step-n{background:var(--fw-accent); border-color:var(--fw-accent); color:var(--fw-on-accent)}
 .fw-step.is-done .fw-step-n svg{width:12px; height:12px}
+.fw-step.is-done .fw-step-n .fw-icon{font-size:14px}
 .fw-step.is-active{color:var(--fw-heading); font-weight:500}
 .fw-step.is-active .fw-step-n{border-color:var(--fw-accent); color:var(--fw-heading)}
 .fw-step-line{flex:1; min-width:32px; height:1px; background:var(--fw-border-strong)}
@@ -23,6 +25,7 @@
 .fw-topnav .fw-brand{display:flex; align-items:center; gap:10px; font-weight:600; color:var(--fw-heading)}
 .fw-logo-mark{width:24px; height:24px; border-radius:var(--fw-r-sm); background:var(--fw-accent); display:grid; place-content:center; color:var(--fw-on-accent)}
 .fw-logo-mark svg{width:14px; height:14px}
+.fw-logo-mark .fw-icon{font-size:16px}
 .fw-topnav nav{display:flex; gap:4px}
 .fw-topnav nav a{height:32px; display:inline-flex; align-items:center; padding:0 10px; border-radius:var(--fw-r-sm); color:var(--fw-muted); font-size:13px; font-weight:500; text-decoration:none}
 .fw-topnav nav a:hover{color:var(--fw-heading); background:var(--fw-surface-2)}
@@ -32,7 +35,11 @@
 .fw-sidenav .fw-group-label{padding:14px 10px 6px; font-size:12px; font-weight:500; color:var(--fw-muted)}
 .fw-nav-item{display:flex; align-items:center; gap:10px; height:36px; padding:0 10px; border-radius:var(--fw-r-sm); color:var(--fw-text); font-size:13px; font-weight:500; text-decoration:none !important}
 .fw-nav-item svg{width:16px; height:16px; color:var(--fw-muted); flex:none}
+.fw-nav-item .fw-icon{font-size:18px; color:var(--fw-muted); flex:none}
 .fw-nav-item:hover{background:var(--fw-surface-2); color:var(--fw-heading)}
 .fw-nav-item[aria-current]{background:var(--fw-surface-2); color:var(--fw-heading)}
 .fw-nav-item[aria-current] svg{color:var(--fw-accent)}
+.fw-nav-item[aria-current] .fw-icon{color:var(--fw-accent)}
 .fw-nav-item .fw-badge{margin-left:auto; height:18px; padding:0 6px; font-size:11px}
+.fw-breadcrumb .fw-sep.fw-icon{width:1em; height:1em; font-size:16px}
+.fw-nav-item[aria-current] .fw-icon{font-variation-settings:"FILL" 1}

@@ -11,8 +11,7 @@ import {
   MenuLabel, MenuSeparator, NavGroupLabel, NavItem, Pagination, Popover, Progress, Radio, Range, SegmentedControl, Select,
   SideNav, Skeleton, SortableHeader, Spinner, StatCard, Stepper, Switch, Tab, Table, TabList, TabPanel, Tabs, Tag, Text,
   Textarea, ToastProvider, Tooltip, TopNav, useToast, VisuallyHidden, type ThemeMode,
-  IconArrowRight, IconBell, IconChart, IconChevronDown, IconCopy, IconDownload, IconEye, IconFolder, IconGrid, IconHome,
-  IconList, IconLock, IconMore, IconPencil, IconPlus, IconSearch, IconSettings, IconTrash, IconUser, IconX,
+  Icon,
 } from "../src";
 
 function Section({ title, desc, children }: { title: string; desc?: ReactNode; children: ReactNode }) {
@@ -111,20 +110,20 @@ function Buttons() {
         </Section>
         <Section title="With icons" desc="Leading icon for the action, trailing chevron for menus or navigation. 16px, 8px gap.">
           <div className="row">
-            <Button variant="primary" leadingIcon={<IconPlus />}>New project</Button>
-            <Button leadingIcon={<IconDownload />}>Export</Button>
-            <Button trailingIcon={<IconChevronDown />}>Options</Button>
-            <ButtonLink variant="ghost" href="#" trailingIcon={<IconArrowRight />}>Continue</ButtonLink>
+            <Button variant="primary" leadingIcon={<Icon name="add" />}>New project</Button>
+            <Button leadingIcon={<Icon name="download" />}>Export</Button>
+            <Button trailingIcon={<Icon name="keyboard_arrow_down" />}>Options</Button>
+            <ButtonLink variant="ghost" href="#" trailingIcon={<Icon name="arrow_forward" />}>Continue</ButtonLink>
           </div>
         </Section>
         <Section title="Icon buttons" desc={<>Square, always with <code>aria-label</code> and a tooltip.</>}>
           <div className="row">
-            <Tooltip content="Edit"><Button iconOnly size="sm" aria-label="Edit"><IconPencil /></Button></Tooltip>
-            <Tooltip content="Copy"><Button iconOnly aria-label="Copy"><IconCopy /></Button></Tooltip>
-            <Tooltip content="More actions"><Button variant="ghost" iconOnly aria-label="More actions"><IconMore /></Button></Tooltip>
-            <Tooltip content="Close"><Button variant="ghost" iconOnly size="lg" aria-label="Close"><IconX /></Button></Tooltip>
-            <Tooltip content="Add"><Button variant="primary" iconOnly aria-label="Add"><IconPlus /></Button></Tooltip>
-            <Tooltip content="Delete"><Button variant="danger" iconOnly aria-label="Delete"><IconTrash /></Button></Tooltip>
+            <Tooltip content="Edit"><Button iconOnly size="sm" aria-label="Edit"><Icon name="edit" /></Button></Tooltip>
+            <Tooltip content="Copy"><Button iconOnly aria-label="Copy"><Icon name="content_copy" /></Button></Tooltip>
+            <Tooltip content="More actions"><Button variant="ghost" iconOnly aria-label="More actions"><Icon name="more_horiz" /></Button></Tooltip>
+            <Tooltip content="Close"><Button variant="ghost" iconOnly size="lg" aria-label="Close"><Icon name="close" /></Button></Tooltip>
+            <Tooltip content="Add"><Button variant="primary" iconOnly aria-label="Add"><Icon name="add" /></Button></Tooltip>
+            <Tooltip content="Delete"><Button variant="danger" iconOnly aria-label="Delete"><Icon name="delete" /></Button></Tooltip>
           </div>
         </Section>
         <Section title="Group & block" desc="Joined secondary buttons for related actions; block width for forms and narrow panels.">
@@ -132,7 +131,7 @@ function Buttons() {
             <ButtonGroup aria-label="Range"><Button size="sm">24h</Button><Button size="sm">7d</Button><Button size="sm">30d</Button></ButtonGroup>
             <ButtonGroup aria-label="Deploy">
               <Button variant="primary">Deploy</Button>
-              <Button variant="primary" iconOnly aria-label="Deploy options" style={{ borderLeftColor: "var(--fw-on-accent)" }}><IconChevronDown /></Button>
+              <Button variant="primary" iconOnly aria-label="Deploy options" style={{ borderLeftColor: "var(--fw-on-accent)" }}><Icon name="keyboard_arrow_down" /></Button>
             </ButtonGroup>
           </div>
           <div style={{ maxWidth: 360 }}><Button variant="primary" size="lg" block>Sign in</Button></div>
@@ -162,13 +161,13 @@ function Forms() {
       <Section title="Input types & affixes">
         <div className="cols-4">
           <Field label="Search">
-            <InputGroup><Affix><IconSearch /></Affix><Input type="search" placeholder="Search projects" style={{ paddingLeft: 0 }} /><Affix><Kbd>⌘K</Kbd></Affix></InputGroup>
+            <InputGroup><Affix><Icon name="search" /></Affix><Input type="search" placeholder="Search projects" style={{ paddingLeft: 0 }} /><Affix><Kbd>⌘K</Kbd></Affix></InputGroup>
           </Field>
           <Field label="Domain">
             <InputGroup><Affix boxed>https://</Affix><Input mono defaultValue="dash" /><Affix boxed end>.buunk.org</Affix></InputGroup>
           </Field>
           <Field label="Password" help="Strength: fair — add a symbol or more length.">
-            <InputGroup><Input type="password" defaultValue="hunter2hunter2" /><Button variant="ghost" iconOnly size="sm" aria-label="Show password" style={{ marginRight: 4 }}><IconEye /></Button></InputGroup>
+            <InputGroup><Input type="password" defaultValue="hunter2hunter2" /><Button variant="ghost" iconOnly size="sm" aria-label="Show password" style={{ marginRight: 4 }}><Icon name="visibility" /></Button></InputGroup>
             <Progress meter value={2} max={4} tone="warning" aria-label="Password strength" />
           </Field>
           <Field label="Number"><InputGroup><Input type="number" mono defaultValue="8080" /><Affix boxed end>port</Affix></InputGroup></Field>
@@ -277,8 +276,8 @@ function FeedbackSheet() {
         </Section>
         <Section title="Tooltip" desc="Inverted, 12px, 500ms delay. Labels icon buttons; never holds essential info.">
           <div className="row" style={{ gap: 28, paddingTop: 36 }}>
-            <Tooltip content="Copy to clipboard"><Button iconOnly size="sm" aria-label="Copy to clipboard"><IconCopy /></Button></Tooltip>
-            <Tooltip content="Search" shortcut="⌘K"><Button iconOnly size="sm" aria-label="Search"><IconSearch /></Button></Tooltip>
+            <Tooltip content="Copy to clipboard"><Button iconOnly size="sm" aria-label="Copy to clipboard"><Icon name="content_copy" /></Button></Tooltip>
+            <Tooltip content="Search" shortcut="⌘K"><Button iconOnly size="sm" aria-label="Search"><Icon name="search" /></Button></Tooltip>
           </div>
         </Section>
       </div>
@@ -301,7 +300,7 @@ function FeedbackSheet() {
           </Card>
         </Section>
         <Section title="Empty state">
-          <EmptyState icon={<IconFolder />} title="No projects yet" description="Create a project to start deploying to buunk.org." action={<Button variant="primary" size="sm">New project</Button>} />
+          <EmptyState icon={<Icon name="folder" />} title="No projects yet" description="Create a project to start deploying to buunk.org." action={<Button variant="primary" size="sm">New project</Button>} />
         </Section>
       </div>
     </Sheet>
@@ -316,8 +315,8 @@ function NavigationSheet() {
         <TopNav
           brand={<Brand href="#" mark={<span style={{ fontWeight: 700, fontSize: 12 }}>b</span>}>buunk</Brand>}
           end={<>
-            <Button size="sm" leadingIcon={<IconSearch />} style={{ width: 220, justifyContent: "flex-start", color: "var(--fw-muted)", fontWeight: 400 }}>Search…<Kbd style={{ marginLeft: "auto" }}>⌘K</Kbd></Button>
-            <Tooltip content="Notifications"><Button variant="ghost" iconOnly size="sm" aria-label="Notifications"><IconBell /></Button></Tooltip>
+            <Button size="sm" leadingIcon={<Icon name="search" />} style={{ width: 220, justifyContent: "flex-start", color: "var(--fw-muted)", fontWeight: 400 }}>Search…<Kbd style={{ marginLeft: "auto" }}>⌘K</Kbd></Button>
+            <Tooltip content="Notifications"><Button variant="ghost" iconOnly size="sm" aria-label="Notifications"><Icon name="notifications" /></Button></Tooltip>
             <Avatar online>JB</Avatar>
           </>}
         >
@@ -327,14 +326,14 @@ function NavigationSheet() {
       <div style={{ display: "grid", gridTemplateColumns: "248px minmax(0, 1fr)", gap: 48, alignItems: "start" }}>
         <Section title="Side nav">
           <SideNav aria-label="Workspace">
-            <NavItem href="#" icon={<IconHome />} current>Overview</NavItem>
-            <NavItem href="#" icon={<IconFolder />} badge={<Badge>12</Badge>}>Projects</NavItem>
-            <NavItem href="#" icon={<IconArrowRight />} badge={<Badge tone="error">1</Badge>}>Deployments</NavItem>
-            <NavItem href="#" icon={<IconChart />}>Analytics</NavItem>
+            <NavItem href="#" icon={<Icon name="home" />} current>Overview</NavItem>
+            <NavItem href="#" icon={<Icon name="folder" />} badge={<Badge>12</Badge>}>Projects</NavItem>
+            <NavItem href="#" icon={<Icon name="arrow_forward" />} badge={<Badge tone="error">1</Badge>}>Deployments</NavItem>
+            <NavItem href="#" icon={<Icon name="bar_chart" />}>Analytics</NavItem>
             <NavGroupLabel>Identity</NavGroupLabel>
-            <NavItem href="#" icon={<IconUser />}>Users</NavItem>
-            <NavItem href="#" icon={<IconLock />}>Clients</NavItem>
-            <NavItem href="#" icon={<IconSettings />}>Realm settings</NavItem>
+            <NavItem href="#" icon={<Icon name="person" />}>Users</NavItem>
+            <NavItem href="#" icon={<Icon name="lock" />}>Clients</NavItem>
+            <NavItem href="#" icon={<Icon name="settings" />}>Realm settings</NavItem>
           </SideNav>
         </Section>
         <div className="stack" style={{ gap: 40 }}>
@@ -353,7 +352,7 @@ function NavigationSheet() {
             <Section title="Segmented control">
               <div className="row">
                 <SegmentedControl label="View" options={[{ value: "day", label: "Day" }, { value: "week", label: "Week" }, { value: "month", label: "Month" }]} />
-                <SegmentedControl label="Layout" options={[{ value: "grid", label: null, icon: <IconGrid />, ariaLabel: "Grid" }, { value: "list", label: null, icon: <IconList />, ariaLabel: "List" }]} />
+                <SegmentedControl label="Layout" options={[{ value: "grid", label: null, icon: <Icon name="grid_view" />, ariaLabel: "Grid" }, { value: "list", label: null, icon: <Icon name="list" />, ariaLabel: "List" }]} />
               </div>
             </Section>
           </div>
@@ -364,13 +363,13 @@ function NavigationSheet() {
           <Section title="Stepper"><Stepper aria-label="Setup progress" steps={["Account", "Workspace", "Invite team", "Done"]} current={1} /></Section>
           <Section title="Dropdown menu">
             <div className="row row-top" style={{ gap: 32 }}>
-              <DropdownMenu label="Project actions" trigger={<Button trailingIcon={<IconChevronDown />}>Actions</Button>}>
+              <DropdownMenu label="Project actions" trigger={<Button trailingIcon={<Icon name="keyboard_arrow_down" />}>Actions</Button>}>
                 <MenuLabel>Project</MenuLabel>
-                <MenuItem icon={<IconPencil />} shortcut="F2">Rename</MenuItem>
-                <MenuItem icon={<IconCopy />} shortcut="⌘D">Duplicate</MenuItem>
-                <MenuItem icon={<IconDownload />}>Export</MenuItem>
+                <MenuItem icon={<Icon name="edit" />} shortcut="F2">Rename</MenuItem>
+                <MenuItem icon={<Icon name="content_copy" />} shortcut="⌘D">Duplicate</MenuItem>
+                <MenuItem icon={<Icon name="download" />}>Export</MenuItem>
                 <MenuSeparator />
-                <MenuItem icon={<IconTrash />} shortcut="⌫" danger>Delete</MenuItem>
+                <MenuItem icon={<Icon name="delete" />} shortcut="⌫" danger>Delete</MenuItem>
               </DropdownMenu>
               <div className="stack" style={{ gap: 8 }}>
                 <span className="spec">select menu · single choice</span>
@@ -423,7 +422,7 @@ function DataSheet() {
                 <td><Badge tone={r.tone} dot>{r.status}</Badge></td>
                 <td className="fw-mono">{r.started}</td>
                 <td className="fw-num">{r.reqs}</td>
-                <td><Button variant="ghost" iconOnly size="sm" aria-label="Row actions"><IconMore /></Button></td>
+                <td><Button variant="ghost" iconOnly size="sm" aria-label="Row actions"><Icon name="more_horiz" /></Button></td>
               </tr>
             ))}
           </tbody>
@@ -521,7 +520,7 @@ function OverlaySheet() {
           </Dialog>
         </Section>
         <Section title="Drawer / sheet">
-          <div className="row"><Button variant="primary" leadingIcon={<IconPlus />} onClick={() => setDrawer(true)}>Invite member</Button></div>
+          <div className="row"><Button variant="primary" leadingIcon={<Icon name="add" />} onClick={() => setDrawer(true)}>Invite member</Button></div>
           <Drawer
             open={drawer}
             onClose={() => setDrawer(false)}
@@ -548,16 +547,16 @@ function OverlaySheet() {
           </div>
         </Section>
         <Section title="Command palette" desc="Opened with ⌘K. Combobox + listbox; arrows move, ↵ runs.">
-          <div className="row"><Button leadingIcon={<IconSearch />} onClick={() => setPalette(true)}>Open palette <Kbd>⌘K</Kbd></Button></div>
+          <div className="row"><Button leadingIcon={<Icon name="search" />} onClick={() => setPalette(true)}>Open palette <Kbd>⌘K</Kbd></Button></div>
           <CommandPalette
             open={palette}
             onClose={() => setPalette(false)}
             onOpenShortcut={() => setPalette(true)}
             commands={[
-              { id: "deploy", group: "Actions", label: "Deploy dashboard", icon: <IconArrowRight />, onSelect: () => toast.show({ title: "Deploying dashboard" }) },
-              { id: "logs", group: "Actions", label: "View deployment logs", icon: <IconList />, onSelect: () => {} },
-              { id: "deployments", group: "Navigate", label: "Deployments", icon: <IconFolder />, shortcut: "G D", onSelect: () => {} },
-              { id: "settings", group: "Navigate", label: "Settings", icon: <IconSettings />, shortcut: "G S", onSelect: () => {} },
+              { id: "deploy", group: "Actions", label: "Deploy dashboard", icon: <Icon name="arrow_forward" />, onSelect: () => toast.show({ title: "Deploying dashboard" }) },
+              { id: "logs", group: "Actions", label: "View deployment logs", icon: <Icon name="list" />, onSelect: () => {} },
+              { id: "deployments", group: "Navigate", label: "Deployments", icon: <Icon name="folder" />, shortcut: "G D", onSelect: () => {} },
+              { id: "settings", group: "Navigate", label: "Settings", icon: <Icon name="settings" />, shortcut: "G S", onSelect: () => {} },
             ]}
           />
         </Section>

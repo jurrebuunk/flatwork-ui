@@ -15,7 +15,8 @@ import {
   type TextareaHTMLAttributes,
 } from "react";
 import { cx } from "./cx";
-import { IconChevronDown, IconUpload } from "./icons";
+import { Icon } from "./icons";
+
 
 interface FieldContextValue {
   id: string;
@@ -145,7 +146,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       <select ref={ref} className={cx("fw-select", invalid && "is-error", className)} {...props} {...field}>
         {children}
       </select>
-      <IconChevronDown />
+      <Icon name="keyboard_arrow_down" />
     </span>
   );
 });
@@ -323,7 +324,7 @@ export function Dropzone({ title, hint, onFiles, onChange, className, ...props }
         if (e.dataTransfer.files.length) onFiles?.(e.dataTransfer.files);
       }}
     >
-      <IconUpload />
+      <Icon name="upload" />
       <span>{title ?? <><strong>Click to upload</strong> or drag and drop</>}</span>
       {hint && <span style={{ fontFamily: "var(--fw-mono)", fontSize: 12 }}>{hint}</span>}
       <input

@@ -1,5 +1,6 @@
 .fw-alert{display:flex; gap:12px; align-items:flex-start; padding:12px 14px; border:1px solid var(--fw-info-border); border-radius:var(--fw-r-sm); background:var(--fw-info-bg); color:var(--fw-info); font-size:13px}
 .fw-alert > svg{width:16px; height:16px; flex:none; margin-top:2px}
+.fw-alert > .fw-icon{font-size:18px; flex:none; margin-top:1px}
 .fw-alert-body{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0}
 .fw-alert-title{font-weight:600}
 .fw-alert-text{color:var(--fw-text)}
@@ -9,6 +10,7 @@
 .fw-alert-neutral{border-color:var(--fw-border); background:var(--fw-surface); color:var(--fw-heading)}
 .fw-toast{display:flex; gap:12px; align-items:flex-start; width:360px; padding:14px 16px; background:var(--fw-surface); border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-md); box-shadow:var(--fw-shadow-pop); font-size:13px}
 .fw-toast > svg{width:16px; height:16px; flex:none; margin-top:2px}
+.fw-toast > .fw-icon{font-size:18px; flex:none; margin-top:1px}
 .fw-toast .fw-alert-body{color:var(--fw-text)}
 .fw-toast .fw-alert-title{color:var(--fw-heading)}
 .fw-toast-actions{display:flex; gap:12px; margin-top:6px}

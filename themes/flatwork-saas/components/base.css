@@ -16,3 +16,10 @@
 .fw-t-mono{font-family:var(--fw-mono); font-size:13px}
 .fw-t-muted{color:var(--fw-muted)}
 .fw mark{background:var(--fw-mark); color:var(--fw-heading); padding:0 2px; border-radius:2px}
+
+/* Icons: Material Symbols Rounded (weight 400, optical size 20) via ligatures:
+   <span class="fw-icon">search</span>. 18px matches the 16px stroke icons of the spec. */
+.fw-icon{font-family:var(--fw-icon); font-weight:normal; font-style:normal; font-size:18px; line-height:1; width:1em; height:1em;
+  display:inline-block; flex:none; overflow:hidden; white-space:nowrap; letter-spacing:normal; text-transform:none; word-wrap:normal;
+  direction:ltr; user-select:none; -webkit-font-smoothing:antialiased; font-feature-settings:"liga"; font-variation-settings:"FILL" 0}
+.fw-icon.is-filled{font-variation-settings:"FILL" 1}

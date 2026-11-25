@@ -2,6 +2,7 @@
   border:1px solid transparent; border-radius:var(--fw-r-sm); font:inherit; font-size:14px; font-weight:500;
   white-space:nowrap; cursor:pointer; text-decoration:none !important; transition:background-color .12s ease-out, border-color .12s ease-out, color .12s ease-out}
 .fw-btn svg{width:16px; height:16px; flex:none}
+.fw-btn .fw-icon{font-size:18px; flex:none}
 .fw-btn-primary{background:var(--fw-accent); border-color:var(--fw-accent); color:var(--fw-on-accent); font-weight:600}
 .fw-btn-primary:hover, .fw-btn-primary.is-hover{background:var(--fw-accent-hover); border-color:var(--fw-accent-hover)}
 .fw-btn-secondary{background:var(--fw-input); border-color:var(--fw-border-strong); color:var(--fw-heading)}

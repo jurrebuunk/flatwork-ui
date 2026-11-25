@@ -15,7 +15,8 @@ import {
 } from "react";
 import { cx } from "./cx";
 import { Button } from "./Button";
-import { IconSearch, IconX } from "./icons";
+import { Icon } from "./icons";
+
 import { Menu, MenuItem, MenuLabel } from "./Menu";
 
 /** Calls `onOutside` on pointer down outside `ref` and on Escape, while `active`. */
@@ -235,7 +236,7 @@ function DialogHead({ titleId, title, subtitle, onClose, hideClose, divided }: {
       </div>
       {!hideClose && (
         <Button variant="ghost" size="sm" iconOnly aria-label="Close" onClick={onClose} style={{ margin: "-6px -10px 0 0" }}>
-          <IconX />
+          <Icon name="close" />
         </Button>
       )}
     </div>
@@ -351,7 +352,7 @@ export function CommandPalette({ open, onClose, commands, placeholder = "Search 
       {open && (
         <>
           <div className="fw-command-input">
-            <IconSearch />
+            <Icon name="search" />
             <input
               autoFocus
               role="combobox"

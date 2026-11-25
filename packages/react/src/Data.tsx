@@ -1,6 +1,7 @@
 import { Fragment, type DetailsHTMLAttributes, type HTMLAttributes, type ReactNode, type TableHTMLAttributes, type ThHTMLAttributes } from "react";
 import { cx } from "./cx";
-import { IconChevronDown, IconChevronUp } from "./icons";
+import { Icon } from "./icons";
+
 
 // ---------- Card ----------
 
@@ -96,7 +97,7 @@ export function SortableHeader({ sort = "none", onSort, className, children, ...
     <th className={cx("fw-sortable", className)} aria-sort={sort} {...props}>
       <button type="button" onClick={onSort} style={{ background: "none", border: 0, padding: 0, font: "inherit", color: "inherit", cursor: "pointer" }}>
         {children}
-        {sort === "descending" ? <IconChevronDown /> : <IconChevronUp style={sort === "none" ? { opacity: 0.4 } : undefined} />}
+        {sort === "descending" ? <Icon name="keyboard_arrow_down" /> : <Icon name="keyboard_arrow_up" style={sort === "none" ? { opacity: 0.4 } : undefined} />}
       </button>
     </th>
   );
@@ -159,7 +160,7 @@ export function AccordionItem({ title, children, ...props }: AccordionItemProps)
     <details {...props}>
       <summary>
         {title}
-        <IconChevronDown />
+        <Icon name="keyboard_arrow_down" />
       </summary>
       <div className="fw-acc-body">{children}</div>
     </details>

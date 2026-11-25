@@ -26,8 +26,11 @@
 .fw-accordion summary{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; cursor:pointer; list-style:none; color:var(--fw-heading); font-weight:500}
 .fw-accordion summary::-webkit-details-marker{display:none}
 .fw-accordion summary svg{width:16px; height:16px; color:var(--fw-muted); transition:transform .22s ease-out}
+.fw-accordion summary .fw-icon{font-size:18px; color:var(--fw-muted); transition:transform .22s ease-out}
 .fw-accordion details[open] summary svg{transform:rotate(180deg)}
+.fw-accordion details[open] summary .fw-icon{transform:rotate(180deg)}
 .fw-accordion .fw-acc-body{padding:0 16px 16px; color:var(--fw-text); font-size:13px}
 .fw-empty{display:flex; flex-direction:column; align-items:center; gap:8px; padding:40px 24px; border:1px dashed var(--fw-border-strong); border-radius:var(--fw-r-md); text-align:center}
 .fw-empty-icon{display:grid; place-content:center; width:40px; height:40px; border-radius:var(--fw-r-sm); background:var(--fw-surface-2); color:var(--fw-text); margin-bottom:4px}
 .fw-empty-icon svg{width:20px; height:20px}
+.fw-empty-icon .fw-icon{font-size:22px}

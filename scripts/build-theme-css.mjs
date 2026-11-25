@@ -39,7 +39,7 @@ if (modes.light && modes.dark) {
 }
 
 const fontCss = (tokens.fontFaces ?? [])
-  .map((f) => `@font-face { font-family: "${f.family}"; font-weight: ${f.weight}; font-style: normal; font-display: swap; src: url("./${f.file}") format("woff2"); }`)
+  .map((f) => `@font-face { font-family: "${f.family}"; font-weight: ${f.weight}; font-style: normal; font-display: ${f.display ?? "swap"}; src: url("./${f.file}") format("woff2"); }`)
   .join("\n");
 
 // Inline local @import "x.css" statements, recursively.

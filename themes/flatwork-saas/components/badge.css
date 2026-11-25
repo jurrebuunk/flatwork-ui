@@ -9,3 +9,4 @@
 .fw-tag{display:inline-flex; align-items:center; gap:4px; height:26px; padding:0 4px 0 10px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-sm); font-size:13px; color:var(--fw-heading); background:var(--fw-input)}
 .fw-tag button{display:grid; place-content:center; width:20px; height:20px; border:0; border-radius:var(--fw-r-xs); background:transparent; color:var(--fw-muted); cursor:pointer; padding:0}
 .fw-tag button svg{width:12px; height:12px}
+.fw-tag button .fw-icon{font-size:14px}

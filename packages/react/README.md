@@ -48,6 +48,21 @@ export function App() {
 * The bundle is marked `"use client"`, so it works in Next.js App Router.
 * Router links: `NavItem` takes `as={Link}`; `Breadcrumb` takes `renderLink`.
 
+## Icons
+
+Every [Material Symbols](https://fonts.google.com/icons) icon, in the Rounded style the design system uses. The font ships with the stylesheet (no Google requests), and `name` is typed, so your editor autocompletes all 3,945 names:
+
+```tsx
+import { Icon, Button } from "@flatwork-ui/react";
+
+<Icon name="settings" />
+<Icon name="star" filled />               // filled = active/selected
+<Icon name="warning" size={24} label="Warning" />  // label = meaningful, announced
+<Button leadingIcon={<Icon name="add" />}>New project</Button>
+```
+
+Search names at fonts.google.com/icons (pick "Material Symbols", "Rounded").
+
 ## Components
 
 | Area | Components |
@@ -59,7 +74,7 @@ export function App() {
 | Navigation | `TopNav`, `Brand`, `SideNav`, `NavItem`, `NavGroupLabel`, `Tabs`, `TabList`, `Tab`, `TabPanel`, `SegmentedControl`, `Breadcrumb`, `Pagination`, `Stepper` |
 | Menus & overlays | `Menu`, `MenuItem`, `MenuLabel`, `MenuSeparator`, `DropdownMenu`, `Tooltip`, `Popover`, `Dialog`, `Drawer`, `CommandPalette` |
 | Data | `Card`, `CardHeader`, `CardBody`, `CardFooter`, `StatCard`, `Table`, `SortableHeader`, `List`, `ListItem`, `DescriptionList`, `Accordion`, `AccordionItem`, `CodeBlock`, `Divider`, `Avatar`, `AvatarGroup` |
-| Icons | `IconPlus`, `IconSearch`, `IconChevronDown`, … (16px stroke icons from the spec) |
+| Icons | `Icon` — every [Material Symbols](https://fonts.google.com/icons) icon by name |
 
 Dialogs and drawers use the native `<dialog>` element, so focus trapping, Esc
 and focus return come from the browser. The design rules each component

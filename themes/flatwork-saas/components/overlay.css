@@ -9,6 +9,7 @@
 .fw-command{width:560px; max-width:100%; background:var(--fw-surface); border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-lg); box-shadow:var(--fw-shadow-pop); overflow:hidden}
 .fw-command-input{display:flex; align-items:center; gap:10px; height:52px; padding:0 16px; border-bottom:1px solid var(--fw-border); color:var(--fw-muted)}
 .fw-command-input svg{width:16px; height:16px}
+.fw-command-input .fw-icon{font-size:18px}
 .fw-command-input input{flex:1; height:100%; border:0; background:transparent; color:var(--fw-heading); font:inherit; font-size:15px; outline:0}
 .fw-command .fw-menu{width:100%; border:0; box-shadow:none; border-radius:0; padding:6px}
 .fw-command-foot{display:flex; gap:16px; padding:10px 16px; border-top:1px solid var(--fw-border); font-size:12px; color:var(--fw-muted)}

@@ -17,12 +17,14 @@
 .fw-select-wrap{position:relative; display:block}
 .fw-select{appearance:none; padding-right:36px; cursor:pointer}
 .fw-select-wrap > svg{position:absolute; right:12px; top:50%; width:14px; height:14px; margin-top:-7px; color:var(--fw-muted); pointer-events:none}
+.fw-select-wrap > .fw-icon{position:absolute; right:12px; top:50%; font-size:16px; margin-top:-8px; color:var(--fw-muted); pointer-events:none}
 .fw-input-affix{display:flex; align-items:center; height:40px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-sm); background:var(--fw-input); overflow:hidden}
 .fw-input-affix > .fw-input{border:0; border-radius:0; height:38px; outline:0}
 .fw-input-affix .fw-affix{display:flex; align-items:center; gap:6px; height:100%; padding:0 12px; color:var(--fw-muted); font-size:13px; white-space:nowrap}
 .fw-input-affix .fw-affix-box{background:var(--fw-surface-2); border-right:1px solid var(--fw-border-strong); font-family:var(--fw-mono); font-size:12px}
 .fw-input-affix .fw-affix-box.fw-end{border-right:0; border-left:1px solid var(--fw-border-strong)}
 .fw-input-affix svg{width:16px; height:16px}
+.fw-input-affix .fw-icon{font-size:18px}
 .fw-input-affix.is-focus{border-color:var(--fw-focus); outline:2px solid var(--fw-focus); outline-offset:1px}
 
 .fw-check{display:inline-flex; align-items:flex-start; gap:10px; cursor:pointer; font-size:14px; color:var(--fw-text); min-height:24px; line-height:20px}
@@ -48,6 +50,7 @@
 .fw-range::-moz-range-thumb{width:12px; height:12px; border-radius:50%; background:var(--fw-heading); border:2px solid var(--fw-accent)}
 .fw-dropzone{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:28px; border:1px dashed var(--fw-border-strong); border-radius:var(--fw-r-md); background:var(--fw-input); text-align:center; color:var(--fw-muted); font-size:13px}
 .fw-dropzone svg{width:20px; height:20px; color:var(--fw-text)}
+.fw-dropzone .fw-icon{font-size:22px; color:var(--fw-text)}
 .fw-dropzone strong{color:var(--fw-heading); font-weight:500}
 .fw-fieldset{margin:0; padding:20px; border:1px solid var(--fw-border); border-radius:var(--fw-r-md); display:flex; flex-direction:column; gap:14px}
 .fw-fieldset legend{padding:0 6px; margin-left:-6px; font-size:13px; font-weight:600; color:var(--fw-heading)}

@@ -7,4 +7,5 @@
 .fw-segmented{display:inline-flex; gap:2px; padding:3px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-sm); background:var(--fw-input)}
 .fw-seg{height:30px; padding:0 12px; border:0; border-radius:var(--fw-r-xs); background:transparent; color:var(--fw-muted); font:inherit; font-size:13px; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:6px}
 .fw-seg svg{width:14px; height:14px}
+.fw-seg .fw-icon{font-size:16px}
 .fw-seg.is-active{background:var(--fw-surface-2); color:var(--fw-heading); box-shadow:inset 0 0 0 1px var(--fw-border-strong)}
