@@ -1,0 +1,12 @@
+{
+  "name": "flatwork-ui",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "dev": "npm run dev -w @flatwork-ui/react"
+  }
+}

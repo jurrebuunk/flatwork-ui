@@ -1,1 +1,1 @@
-import ./hue-gradient-design.nix
+import ./hue-gradient-design

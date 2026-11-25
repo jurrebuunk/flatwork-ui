@@ -1,0 +1,14 @@
+.fw-table-wrap{border:1px solid var(--fw-border); border-radius:var(--fw-r-md); overflow:auto; background:var(--fw-surface)}
+.fw-table{width:100%; border-collapse:collapse; font-size:13px}
+.fw-table caption{caption-side:top; text-align:left; padding:14px 16px; font-weight:600; color:var(--fw-heading); font-size:14px; border-bottom:1px solid var(--fw-border)}
+.fw-table th{height:40px; padding:0 16px; text-align:left; font-size:12px; font-weight:500; color:var(--fw-muted); border-bottom:1px solid var(--fw-border); background:var(--fw-surface); white-space:nowrap}
+.fw-table th.fw-sortable{cursor:pointer}
+.fw-table th.fw-sortable svg{width:12px; height:12px; vertical-align:-2px; margin-left:4px}
+.fw-table td{height:48px; padding:0 16px; border-bottom:1px solid var(--fw-border); color:var(--fw-text); white-space:nowrap}
+.fw-table tbody tr:last-child td{border-bottom:0}
+.fw-table tbody tr:hover td{background:var(--fw-surface-2)}
+.fw-table tr.is-selected td{background:var(--fw-info-bg)}
+.fw-table .fw-num{text-align:right; font-family:var(--fw-mono)}
+.fw-table .fw-mono{font-family:var(--fw-mono); font-size:12px}
+.fw-table .fw-cell-user{display:flex; align-items:center; gap:10px; color:var(--fw-heading)}
+.fw-table-foot{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 16px; border-top:1px solid var(--fw-border); font-size:12px; color:var(--fw-muted)}

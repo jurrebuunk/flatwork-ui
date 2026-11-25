@@ -1,0 +1,18 @@
+/* Base: the .fw root, resets, inline elements and type scale.
+   Everything in the library only renders correctly inside an element with class="fw". */
+.fw{background:var(--fw-bg); color:var(--fw-text); font:400 14px/1.5 var(--fw-font); -webkit-font-smoothing:antialiased}
+.fw *, .fw *::before, .fw *::after{box-sizing:border-box}
+.fw a{color:var(--fw-link); text-decoration:none}
+.fw a:hover{text-decoration:underline}
+.fw :focus-visible{outline:2px solid var(--fw-focus); outline-offset:2px}
+
+
+.fw-t-display{font-size:28px; line-height:1.2; font-weight:600; letter-spacing:-.02em; color:var(--fw-heading); margin:0}
+.fw-t-title{font-size:22px; line-height:1.25; font-weight:600; letter-spacing:-.02em; color:var(--fw-heading); margin:0}
+.fw-t-heading{font-size:16px; line-height:1.35; font-weight:600; letter-spacing:-.01em; color:var(--fw-heading); margin:0}
+.fw-t-body{font-size:14px; line-height:1.5; margin:0}
+.fw-t-label{font-size:13px; line-height:1.4; font-weight:500; color:var(--fw-heading); margin:0}
+.fw-t-caption{font-size:12px; line-height:1.4; color:var(--fw-muted); margin:0}
+.fw-t-mono{font-family:var(--fw-mono); font-size:13px}
+.fw-t-muted{color:var(--fw-muted)}
+.fw mark{background:var(--fw-mark); color:var(--fw-heading); padding:0 2px; border-radius:2px}

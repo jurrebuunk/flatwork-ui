@@ -1,0 +1,9 @@
+.fw-progress{width:100%; height:6px; border-radius:var(--fw-r-full); background:var(--fw-surface-2); overflow:hidden; border:1px solid var(--fw-border)}
+.fw-progress > span{display:block; height:100%; background:var(--fw-accent); border-radius:var(--fw-r-full)}
+.fw-progress.is-success > span{background:var(--fw-success)}
+.fw-progress.is-warning > span{background:var(--fw-warning)}
+.fw-progress.is-error > span{background:var(--fw-error)}
+.fw-progress-indeterminate > span{width:35%; animation:fw-indet 1.2s ease-in-out infinite}
+@keyframes fw-indet{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+.fw-skeleton{background:var(--fw-surface-2); border-radius:var(--fw-r-xs); animation:fw-pulse 1.6s ease-in-out infinite}
+@keyframes fw-pulse{50%{opacity:.55}}

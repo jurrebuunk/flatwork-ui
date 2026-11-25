@@ -1,0 +1,11 @@
+.fw-badge{display:inline-flex; align-items:center; gap:6px; height:22px; padding:0 8px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-xs);
+  background:var(--fw-surface-2); color:var(--fw-text); font-size:12px; font-weight:500; white-space:nowrap}
+.fw-badge-accent{background:var(--fw-info-bg); border-color:var(--fw-info-border); color:var(--fw-info)}
+.fw-badge-success{background:var(--fw-success-bg); border-color:var(--fw-success-border); color:var(--fw-success)}
+.fw-badge-warning{background:var(--fw-warning-bg); border-color:var(--fw-warning-border); color:var(--fw-warning)}
+.fw-badge-error{background:var(--fw-error-bg); border-color:var(--fw-error-border); color:var(--fw-error)}
+.fw-badge .fw-dot{width:6px; height:6px; border-radius:50%; background:currentColor}
+.fw-badge-count{min-width:20px; height:20px; padding:0 6px; justify-content:center; border-radius:var(--fw-r-full); background:var(--fw-accent); border-color:var(--fw-accent); color:var(--fw-on-accent); font-family:var(--fw-mono); font-size:11px}
+.fw-tag{display:inline-flex; align-items:center; gap:4px; height:26px; padding:0 4px 0 10px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-sm); font-size:13px; color:var(--fw-heading); background:var(--fw-input)}
+.fw-tag button{display:grid; place-content:center; width:20px; height:20px; border:0; border-radius:var(--fw-r-xs); background:transparent; color:var(--fw-muted); cursor:pointer; padding:0}
+.fw-tag button svg{width:12px; height:12px}

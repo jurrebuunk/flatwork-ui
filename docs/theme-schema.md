@@ -1,6 +1,6 @@
 # Theme schema
 
-A Flatwork UI theme is a Nix attrset consumed by the Home Manager modules.
+A Flatwork UI theme is a folder in `themes/` (see the README). Its `default.nix` evaluates to a Nix attrset consumed by the Home Manager modules: the fields below come from `tokens.nix`, plus `design` (path to `DESIGN.md`) and `components` (path to `components/`).
 
 Required top-level fields:
 

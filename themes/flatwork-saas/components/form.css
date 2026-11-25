@@ -1,0 +1,57 @@
+.fw-field{display:flex; flex-direction:column; gap:6px; min-width:0}
+.fw-label{font-size:13px; font-weight:500; color:var(--fw-heading)}
+.fw-label .fw-opt{font-weight:400; color:var(--fw-muted)}
+.fw-help{font-size:12px; color:var(--fw-muted)}
+.fw-field-error{font-size:12px; color:var(--fw-error)}
+.fw-input, .fw-textarea, .fw-select{width:100%; height:40px; padding:0 12px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-sm);
+  background:var(--fw-input); color:var(--fw-heading); font:inherit; font-size:14px; transition:border-color .12s ease-out}
+.fw-input::placeholder, .fw-textarea::placeholder{color:var(--fw-muted); opacity:1}
+.fw-input:hover, .fw-input.is-hover{border-color:var(--fw-border-hover)}
+.fw-input:focus, .fw-input.is-focus, .fw-textarea.is-focus, .fw-select.is-focus{border-color:var(--fw-focus); outline:2px solid var(--fw-focus); outline-offset:1px}
+.fw-input.is-error, .fw-textarea.is-error{border-color:var(--fw-error)}
+.fw-input:disabled, .fw-textarea:disabled, .fw-select:disabled{opacity:.5; cursor:not-allowed}
+.fw-input[readonly]{background:var(--fw-surface-2); color:var(--fw-text)}
+.fw-input.is-mono{font-family:var(--fw-mono); font-size:13px}
+.fw-input-sm{height:32px; font-size:13px; padding:0 10px}
+.fw-textarea{height:auto; min-height:96px; padding:10px 12px; line-height:1.5; resize:vertical}
+.fw-select-wrap{position:relative; display:block}
+.fw-select{appearance:none; padding-right:36px; cursor:pointer}
+.fw-select-wrap > svg{position:absolute; right:12px; top:50%; width:14px; height:14px; margin-top:-7px; color:var(--fw-muted); pointer-events:none}
+.fw-input-affix{display:flex; align-items:center; height:40px; border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-sm); background:var(--fw-input); overflow:hidden}
+.fw-input-affix > .fw-input{border:0; border-radius:0; height:38px; outline:0}
+.fw-input-affix .fw-affix{display:flex; align-items:center; gap:6px; height:100%; padding:0 12px; color:var(--fw-muted); font-size:13px; white-space:nowrap}
+.fw-input-affix .fw-affix-box{background:var(--fw-surface-2); border-right:1px solid var(--fw-border-strong); font-family:var(--fw-mono); font-size:12px}
+.fw-input-affix .fw-affix-box.fw-end{border-right:0; border-left:1px solid var(--fw-border-strong)}
+.fw-input-affix svg{width:16px; height:16px}
+.fw-input-affix.is-focus{border-color:var(--fw-focus); outline:2px solid var(--fw-focus); outline-offset:1px}
+
+.fw-check{display:inline-flex; align-items:flex-start; gap:10px; cursor:pointer; font-size:14px; color:var(--fw-text); min-height:24px; line-height:20px}
+.fw-check small{display:block; font-size:12px; color:var(--fw-muted); line-height:1.4}
+.fw-checkbox, .fw-radio{appearance:none; flex:none; width:16px; height:16px; margin:2px 0 0; border:1px solid var(--fw-border-strong); background:var(--fw-input);
+  display:grid; place-content:center; cursor:pointer}
+.fw-checkbox{border-radius:var(--fw-r-xs)}
+.fw-radio{border-radius:50%}
+.fw-checkbox:checked, .fw-checkbox.is-indeterminate{background:var(--fw-accent); border-color:var(--fw-accent)}
+.fw-checkbox:checked::after{content:""; width:4px; height:8px; border:solid var(--fw-on-accent); border-width:0 2px 2px 0; transform:translateY(-1px) rotate(45deg)}
+.fw-checkbox.is-indeterminate::after{content:""; width:8px; height:2px; background:var(--fw-on-accent); border:0; transform:none}
+.fw-radio:checked{border-color:var(--fw-accent); border-width:5px}
+.fw-checkbox:disabled, .fw-radio:disabled, .fw-switch:disabled{opacity:.45; cursor:not-allowed}
+.fw-switch{appearance:none; flex:none; position:relative; width:36px; height:20px; margin:0; border-radius:var(--fw-r-full); background:var(--fw-border-strong); cursor:pointer; transition:background-color .12s ease-out}
+.fw-switch::after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:var(--fw-heading); transition:transform .12s ease-out}
+.fw-switch:checked{background:var(--fw-accent)}
+.fw-switch:checked::after{transform:translateX(16px); background:var(--fw-on-accent)}
+.fw-range{appearance:none; width:100%; height:20px; background:transparent; margin:0}
+.fw-range::-webkit-slider-runnable-track{height:4px; border-radius:var(--fw-r-full); background:linear-gradient(var(--fw-accent),var(--fw-accent)) 0/var(--fw-fill,50%) 100% no-repeat, var(--fw-border-strong)}
+.fw-range::-moz-range-track{height:4px; border-radius:var(--fw-r-full); background:var(--fw-border-strong)}
+.fw-range::-moz-range-progress{height:4px; border-radius:var(--fw-r-full); background:var(--fw-accent)}
+.fw-range::-webkit-slider-thumb{appearance:none; width:16px; height:16px; margin-top:-6px; border-radius:50%; background:var(--fw-heading); border:2px solid var(--fw-accent)}
+.fw-range::-moz-range-thumb{width:12px; height:12px; border-radius:50%; background:var(--fw-heading); border:2px solid var(--fw-accent)}
+.fw-dropzone{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:28px; border:1px dashed var(--fw-border-strong); border-radius:var(--fw-r-md); background:var(--fw-input); text-align:center; color:var(--fw-muted); font-size:13px}
+.fw-dropzone svg{width:20px; height:20px; color:var(--fw-text)}
+.fw-dropzone strong{color:var(--fw-heading); font-weight:500}
+.fw-fieldset{margin:0; padding:20px; border:1px solid var(--fw-border); border-radius:var(--fw-r-md); display:flex; flex-direction:column; gap:14px}
+.fw-fieldset legend{padding:0 6px; margin-left:-6px; font-size:13px; font-weight:600; color:var(--fw-heading)}
+
+/* The group draws the focus ring, not the input inside it. */
+.fw .fw-input-affix > .fw-input:focus-visible{outline:0}
+.fw-input-affix:focus-within{border-color:var(--fw-focus); outline:2px solid var(--fw-focus); outline-offset:1px}

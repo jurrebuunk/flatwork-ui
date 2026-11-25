@@ -1,0 +1,30 @@
+.fw-backdrop{position:absolute; inset:0; background:var(--fw-overlay); display:flex; align-items:center; justify-content:center; padding:24px}
+.fw-dialog{width:440px; max-width:100%; background:var(--fw-surface); border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-lg); box-shadow:var(--fw-shadow-pop); display:flex; flex-direction:column}
+.fw-dialog-head{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:20px 24px 0}
+.fw-dialog-title{margin:0; font-size:17px; font-weight:600; letter-spacing:-.01em; color:var(--fw-heading)}
+.fw-dialog-body{padding:12px 24px 20px; color:var(--fw-text); display:flex; flex-direction:column; gap:14px}
+.fw-dialog-foot{display:flex; justify-content:flex-end; gap:8px; padding:14px 24px; border-top:1px solid var(--fw-border)}
+.fw-drawer{position:absolute; top:0; right:0; bottom:0; width:380px; max-width:100%; background:var(--fw-surface); border-left:1px solid var(--fw-border-strong); box-shadow:var(--fw-shadow-pop); display:flex; flex-direction:column}
+.fw-drawer .fw-dialog-body{flex:1}
+.fw-command{width:560px; max-width:100%; background:var(--fw-surface); border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-lg); box-shadow:var(--fw-shadow-pop); overflow:hidden}
+.fw-command-input{display:flex; align-items:center; gap:10px; height:52px; padding:0 16px; border-bottom:1px solid var(--fw-border); color:var(--fw-muted)}
+.fw-command-input svg{width:16px; height:16px}
+.fw-command-input input{flex:1; height:100%; border:0; background:transparent; color:var(--fw-heading); font:inherit; font-size:15px; outline:0}
+.fw-command .fw-menu{width:100%; border:0; box-shadow:none; border-radius:0; padding:6px}
+.fw-command-foot{display:flex; gap:16px; padding:10px 16px; border-top:1px solid var(--fw-border); font-size:12px; color:var(--fw-muted)}
+.fw-command-foot span{display:inline-flex; align-items:center; gap:6px}
+
+/* Native <dialog> versions of the overlays above. showModal() gives the focus trap,
+   Esc to close and focus return; the backdrop replaces .fw-backdrop. */
+dialog.fw-dialog, dialog.fw-drawer, dialog.fw-command{padding:0; color:var(--fw-text); max-height:calc(100% - 48px); overflow:auto}
+dialog.fw-dialog:not([open]), dialog.fw-drawer:not([open]), dialog.fw-command:not([open]){display:none}
+dialog.fw-dialog::backdrop, dialog.fw-drawer::backdrop, dialog.fw-command::backdrop{background:var(--fw-overlay)}
+dialog.fw-drawer{position:fixed; inset:0 0 0 auto; height:100%; max-height:100%; margin:0; border-top:0; border-right:0; border-bottom:0}
+dialog.fw-command{margin:15vh auto auto}
+@media (prefers-reduced-motion:no-preference){
+  dialog.fw-dialog[open], dialog.fw-command[open]{animation:fw-fade var(--fw-motion-normal) var(--fw-easing)}
+  dialog.fw-drawer[open]{animation:fw-slide var(--fw-motion-normal) var(--fw-easing)}
+}
+@keyframes fw-fade{from{opacity:0; transform:translateY(4px)}}
+@keyframes fw-slide{from{transform:translateX(16px); opacity:0}}
+.fw .fw-command-input input:focus-visible{outline:0}

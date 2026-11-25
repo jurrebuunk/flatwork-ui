@@ -1,0 +1,9 @@
+.fw-avatar{display:inline-grid; place-content:center; width:32px; height:32px; border-radius:50%; background:var(--fw-surface-2); border:1px solid var(--fw-border-strong); color:var(--fw-heading); font-size:12px; font-weight:600; flex:none}
+.fw-avatar-sm{width:24px; height:24px; font-size:10px}
+.fw-avatar-lg{width:40px; height:40px; font-size:14px}
+.fw-avatar-sq{border-radius:var(--fw-r-sm)}
+.fw-avatar-group{display:flex}
+.fw-avatar-group .fw-avatar{border:2px solid var(--fw-surface); margin-left:-8px}
+.fw-avatar-group .fw-avatar:first-child{margin-left:0}
+.fw-presence{position:relative}
+.fw-presence::after{content:""; position:absolute; right:-1px; bottom:-1px; width:10px; height:10px; border-radius:50%; background:var(--fw-success); border:2px solid var(--fw-surface)}

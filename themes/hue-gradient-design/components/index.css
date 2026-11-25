@@ -1,0 +1,4 @@
+/* Hue Gradient component library.
+   Load ../vars.css first (shipped next to this folder in the theme package);
+   components only use --flatwork-* variables, never raw values.
+   Add one file per component and @import it here. */

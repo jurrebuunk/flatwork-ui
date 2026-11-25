@@ -1,0 +1,32 @@
+.fw-btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; height:40px; padding:0 16px;
+  border:1px solid transparent; border-radius:var(--fw-r-sm); font:inherit; font-size:14px; font-weight:500;
+  white-space:nowrap; cursor:pointer; text-decoration:none !important; transition:background-color .12s ease-out, border-color .12s ease-out, color .12s ease-out}
+.fw-btn svg{width:16px; height:16px; flex:none}
+.fw-btn-primary{background:var(--fw-accent); border-color:var(--fw-accent); color:var(--fw-on-accent); font-weight:600}
+.fw-btn-primary:hover, .fw-btn-primary.is-hover{background:var(--fw-accent-hover); border-color:var(--fw-accent-hover)}
+.fw-btn-secondary{background:var(--fw-input); border-color:var(--fw-border-strong); color:var(--fw-heading)}
+.fw-btn-secondary:hover, .fw-btn-secondary.is-hover{background:var(--fw-surface-2)}
+.fw-btn-ghost{background:transparent; color:var(--fw-text)}
+.fw-btn-ghost:hover, .fw-btn-ghost.is-hover{background:var(--fw-surface-2); color:var(--fw-heading)}
+.fw-btn-danger{background:var(--fw-danger); border-color:var(--fw-danger); color:var(--fw-on-danger); font-weight:600}
+.fw-btn-danger:hover, .fw-btn-danger.is-hover{filter:brightness(1.08)}
+.fw-btn-link{background:transparent; height:auto; padding:0; color:var(--fw-link)}
+.fw-btn-link:hover, .fw-btn-link.is-hover{text-decoration:underline !important}
+.fw-btn.is-focus{outline:2px solid var(--fw-focus); outline-offset:2px}
+.fw-btn:disabled, .fw-btn.is-disabled{opacity:.45; cursor:not-allowed}
+.fw-btn-sm{height:32px; padding:0 12px; font-size:13px}
+.fw-btn-lg{height:44px; padding:0 20px}
+.fw-btn-icon{width:40px; padding:0}
+.fw-btn-icon.fw-btn-sm{width:32px}
+.fw-btn-icon.fw-btn-lg{width:44px}
+.fw-btn-block{width:100%}
+.fw-btn-group{display:inline-flex}
+.fw-btn-group .fw-btn{border-radius:0}
+.fw-btn-group .fw-btn + .fw-btn{margin-left:-1px}
+.fw-btn-group .fw-btn:first-child{border-radius:var(--fw-r-sm) 0 0 var(--fw-r-sm)}
+.fw-btn-group .fw-btn:last-child{border-radius:0 var(--fw-r-sm) var(--fw-r-sm) 0}
+
+
+.fw-spinner{display:inline-block; width:16px; height:16px; border-radius:50%; border:2px solid currentColor; border-right-color:transparent; opacity:.85; animation:fw-spin .7s linear infinite}
+.fw-spinner-lg{width:24px; height:24px}
+@keyframes fw-spin{to{transform:rotate(360deg)}}

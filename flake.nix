@@ -1,5 +1,5 @@
 {
-  description = "Flatwork UI: a precise dark Niri desktop theme and Home Manager experience";
+  description = "Flatwork UI: design system, themes and component libraries, plus a Niri desktop Home Manager experience";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -9,15 +9,12 @@
     let
       systems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
-      themes = {
-        default = import ./themes/default.nix;
-        hue-gradient-design = import ./themes/hue-gradient-design.nix;
-        gruvbox = import ./themes/gruvbox.nix;
-        starship = import ./themes/starship.nix;
-        teal = import ./themes/teal.nix;
-        orange = import ./themes/orange.nix;
-      };
-      themeLib = import ./lib/theme.nix { lib = nixpkgs.lib; };
+      lib = nixpkgs.lib;
+      # Every folder in ./themes is a theme: tokens.nix + DESIGN.md + components/.
+      themeDirs = lib.attrNames (lib.filterAttrs (_: type: type == "directory") (builtins.readDir ./themes));
+      namedThemes = lib.genAttrs themeDirs (name: import ./themes/${name});
+      themes = namedThemes // { default = import ./themes/default.nix; };
+      themeLib = import ./lib/theme.nix { inherit lib; };
     in
     {
       lib = themeLib // {
@@ -56,22 +53,21 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           theme = themes.default;
-          themeNames = builtins.attrNames themes;
-          writeThemeFiles = nixpkgs.lib.concatMapStringsSep "\n"
-            (name:
-              let
-                namedTheme = themes.${name};
-              in
-              ''
-                mkdir -p "$out/themes/${name}"
-                cat > "$out/themes/${name}/palette.json" <<'EOF'
-                ${themeLib.themeToJson namedTheme}
-                EOF
-                cat > "$out/themes/${name}/vars.css" <<'EOF'
-                ${themeLib.themeToCssVars namedTheme}
-                EOF
-              '')
-            themeNames;
+          # A theme's full package: tokens as CSS/JSON, its design system and its components.
+          # Web themes (with tokens.json) are built by the same script as the npm package,
+          # producing tokens.css and one bundled <name>.css; desktop themes export vars.css.
+          isWebTheme = name: builtins.pathExists ./themes/${name}/tokens.json;
+          mkThemePackage = name: theme: pkgs.runCommand "flatwork-theme-${name}" { nativeBuildInputs = [ pkgs.nodejs ]; } (''
+            mkdir -p "$out"
+            cp ${theme.design} "$out/DESIGN.md"
+            cp -R ${theme.components} "$out/components"
+          '' + (if isWebTheme name then ''
+            node ${./scripts/build-theme-css.mjs} ${./themes/${name}} "$out"
+          '' else ''
+            cp ${pkgs.writeText "palette.json" (themeLib.themeToJson theme)} "$out/palette.json"
+            cp ${pkgs.writeText "vars.css" (themeLib.themeToCssVars theme)} "$out/vars.css"
+          ''));
+          themePackages = lib.mapAttrs' (name: theme: lib.nameValuePair "theme-${name}" (mkThemePackage name theme)) namedThemes;
           releaseVersion = self.shortRev or "dev";
         in
         {
@@ -79,13 +75,13 @@
           css-vars = pkgs.writeText "flatwork-vars.css" (themeLib.themeToCssVars theme);
 
           all-theme-files = pkgs.runCommand "flatwork-theme-files" { } ''
-            mkdir -p "$out"
-            ${writeThemeFiles}
+            mkdir -p "$out/themes"
+            ${lib.concatMapStringsSep "\n" (name: ''cp -R ${themePackages."theme-${name}"} "$out/themes/${name}"'') themeDirs}
           '';
 
           wallpapers = pkgs.runCommand "flatwork-wallpapers" { } ''
             mkdir -p "$out"
-            cp -R ${./themes/wallpapers}/. "$out/"
+            ${lib.concatMapStringsSep "\n" (name: ''cp -R ${./themes/${name}/wallpapers}/. "$out/"'') (lib.filter (name: builtins.pathExists ./themes/${name}/wallpapers) themeDirs)}
           '';
 
           release-bundle = pkgs.runCommand "flatwork-ui-${releaseVersion}.tar.gz" { } ''
@@ -93,7 +89,6 @@
             mkdir -p "$bundle"
 
             cp ${./README.md} "$bundle/README.md"
-            cp ${./DESIGN.md} "$bundle/DESIGN.md"
             cp ${./PROMPT.md} "$bundle/PROMPT.md"
             cp -R ${./docs} "$bundle/docs"
             cp -R ${self.packages.${system}.all-theme-files} "$bundle/theme-files"
@@ -103,7 +98,7 @@
           '';
 
           default = self.packages.${system}.css-vars;
-        }
+        } // themePackages
       );
 
       checks = forAllSystems (system:
@@ -116,6 +111,15 @@
               echo "Found hardcoded /home/jurre/nixos path" >&2
               exit 1
             fi
+            touch $out
+          '';
+
+          themes-are-complete = pkgs.runCommand "flatwork-themes-are-complete" { } ''
+            ${lib.concatMapStringsSep "\n" (name: ''
+              for part in tokens.nix default.nix DESIGN.md components/index.css; do
+                test -e ${./themes/${name}}/$part || { echo "theme ${name} is missing $part" >&2; exit 1; }
+              done
+            '') themeDirs}
             touch $out
           '';
 

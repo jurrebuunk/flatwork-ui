@@ -1,0 +1,10 @@
+.fw-tooltip{position:relative; display:inline-block; padding:6px 8px; border-radius:var(--fw-r-sm); background:var(--fw-heading); color:var(--fw-bg); font-size:12px; font-weight:500; line-height:1.3; white-space:nowrap}
+.fw-tooltip::after{content:""; position:absolute; left:50%; bottom:-4px; width:8px; height:8px; margin-left:-4px; background:var(--fw-heading); transform:rotate(45deg)}
+.fw-tooltip kbd{font-family:var(--fw-mono); font-size:11px; opacity:.7; margin-left:6px}
+.fw-popover{width:300px; padding:16px; background:var(--fw-surface); border:1px solid var(--fw-border-strong); border-radius:var(--fw-r-md); box-shadow:var(--fw-shadow-pop); display:flex; flex-direction:column; gap:12px}
+
+/* Anchoring: a trigger plus its floating layer. Tooltips sit 8px above, popovers and menus 8px below. */
+.fw-anchor{position:relative; display:inline-flex}
+.fw-anchor > .fw-tooltip{position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); z-index:70; pointer-events:none}
+.fw-anchor > .fw-popover, .fw-anchor > .fw-menu{position:absolute; top:calc(100% + 8px); left:0; z-index:50}
+.fw-anchor > .is-end{left:auto; right:0}
